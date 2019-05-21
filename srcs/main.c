@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:53:03 by jblack-b          #+#    #+#             */
-/*   Updated: 2019/05/21 19:10:18 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/05/21 20:00:39 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,15 +313,13 @@ int scene_intersect( t_p3d *orig, t_p3d *dir, t_sphere *spheres, t_p3d *hit, t_p
 		if (ray_intersect(&spheres[i], orig, dir, &dist_i) && dist_i < spheres_dist)
 		{
 			spheres_dist = dist_i;
-			t_p3d temp = ft_p3d_scalar_multiply(*dir, dist_i);
-			*hit = ft_p3d_sum(*orig, temp);
-			t_p3d tmp = ft_p3d_substract(*hit, spheres[i].center);
-			*N = ft_p3d_normalize(tmp);
+			*hit = ft_p3d_sum(*orig, ft_p3d_scalar_multiply(*dir, dist_i));
+			*N = ft_p3d_normalize(ft_p3d_substract(*hit, spheres[i].center));
 			*material = spheres[i].material;
 		}
 		i++;
 	}
-	return spheres_dist<10000;
+	return spheres_dist<1000;
 }
 
 /*
