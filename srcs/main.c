@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:53:03 by jblack-b          #+#    #+#             */
-/*   Updated: 2019/05/17 21:43:02 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/05/21 19:10:18 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,7 @@ int scene_intersect( t_p3d *orig, t_p3d *dir, t_sphere *spheres, t_p3d *hit, t_p
 		}
 		i++;
 	}
-	return spheres_dist<1000;
+	return spheres_dist<10000;
 }
 
 /*
@@ -347,11 +347,18 @@ t_p3d cast_ray (t_p3d *orig, t_p3d *dir, t_sphere *spheres) {
 		for (size_t i=0; i<game.elum.number; i++)
 		{
 			t_p3d light_dir      = ft_p3d_normalize(ft_p3d_substract(game.elum.lights[i].position, point));
-			float light_distance = ft_p3d_norm(ft_p3d_substract(game.elum.lights[i].position, point));
-			t_p3d shadow_orig = ((ft_p3d_dot_multiply(light_dir, N) < 0) ? ft_p3d_substract(point, ft_p3d_scalar_multiply(N, 1e-3)) : ft_p3d_sum(point, ft_p3d_scalar_multiply(N, 1e-3)));
+			t_p3d shadow_orig =ft_p3d_dot_multiply(light_dir, N) < 0 ? ft_p3d_substract(point, ft_p3d_scalar_multiply(N,1e-3)) : ft_p3d_sum(point, ft_p3d_scalar_multiply(N,1e-3));
+			float light_distance = ft_p3d_norm(ft_p3d_substract(game.elum.lights[i].position,  point));
 			t_p3d shadow_pt, shadow_N;
 			t_material temp_material;
-			if (scene_intersect(&shadow_orig, &light_dir, spheres, &shadow_pt, &shadow_N, &temp_material) && ((ft_p3d_norm(ft_p3d_substract(shadow_pt, shadow_orig)) < light_distance)))
+			if (scene_intersect(&shadow_orig, &light_dir, spheres, &shadow_pt, &shadow_N, &temp_material) && (ft_p3d_norm(ft_p3d_substract (shadow_pt, shadow_orig)) < light_distance))
+            	continue;
+			// float light_distance = ft_p3d_norm(ft_p3d_substract(game.elum.lights[i].position, point));
+			// t_p3d shadow_orig = ((ft_p3d_dot_multiply(light_dir, N) < 0) ? ft_p3d_substract(point, ft_p3d_scalar_multiply(N, 1e-3)) : ft_p3d_sum(point, ft_p3d_scalar_multiply(N, 1e-3)));
+			// t_p3d shadow_pt, shadow_N;
+			// t_material temp_material;
+			// if (scene_intersect(&shadow_orig, &light_dir, spheres, &shadow_pt, &shadow_N, &temp_material) && ((ft_p3d_norm(ft_p3d_substract(shadow_pt, shadow_orig)) < light_distance)))
+			// 	continue;
 			diffuse_light_intensity  += game.elum.lights[i].intensity * max(0, ft_p3d_dot_multiply(light_dir, N));
 			specular_light_intensity += powf(max(0.f, ft_p3d_dot_multiply(ft_p3d_scalar_multiply(reflect(ft_p3d_scalar_multiply(light_dir, -1), N), -1),*dir)),\
 			 material.specular_exponent)*game.elum.lights[i].intensity;
