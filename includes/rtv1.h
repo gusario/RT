@@ -106,6 +106,15 @@ typedef struct s_game
 	int wsad[8];
 } t_game;
 
+
+typedef struct s_json
+{
+	char			*param;
+	char			*value;
+	struct s_json	*next;
+} t_json;
+
 void	configure_sphere(char *map_name, t_sphere *sphere);
+void	parce_json(char *filename);
 
 #endif

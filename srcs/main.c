@@ -6,7 +6,7 @@
 /*   By: sdurgan <sdurgan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:53:03 by jblack-b          #+#    #+#             */
-/*   Updated: 2019/05/22 15:29:54 by sdurgan          ###   ########.fr       */
+/*   Updated: 2019/05/27 15:11:54 by sdurgan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,7 +499,7 @@ void ft_update(t_game *game)
 // 	return true;
 // }
 
-
+/*
 int	main(int argc, char **argv)
 {
 	printf("move light source with wasdqe \nchange intensity with zx\n");
@@ -535,4 +535,11 @@ int	main(int argc, char **argv)
 	printf("%zu, %zu\n", game.sdl->surface->height, game.sdl->surface->width);
 	ft_update(&game);
 	ft_exit(NULL);
+}*/
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		parce_json(argv[1]);
+	return (0);
 }

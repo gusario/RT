@@ -6,7 +6,7 @@
 /*   By: sdurgan <sdurgan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 15:12:04 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/05/15 16:27:57 by sdurgan          ###   ########.fr       */
+/*   Updated: 2019/05/27 17:04:25 by sdurgan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,76 @@ void	configure_sphere(char *map_name, t_sphere *sphere)
 		ft_strchr(line, 'r') ? sphere->radius = ret : 0;
 		ret = ft_2darrayclean(&split);
 	}
+}
+
+t_json	*init_line(char *line)
+{
+	t_json	*node;
+
+	node = (t_json *)malloc(sizeof(t_json));
+	node->param = NULL;
+	node->next = NULL;
+	node->value = line;
+	return (node);
+}
+
+t_json		*ft_lstadd_to_end(t_json **data, char *line)
+{
+	t_json	*new_node;
+	t_json	*head;
+
+	if (!(new_node = (t_json *)malloc(sizeof(t_json))))
+		return (NULL);
+	head = *data;
+	while (*data && (*data)->next)
+		*data = (*data)->next;
+	if (*data)
+	{
+		(*data)->next = new_node;
+		*data = head;
+	}
+	else
+		*data = new_node;
+	new_node->next = NULL;
+	new_node->value = line;
+	return (new_node);
+}
+
+void	process_line(t_json *data)
+{
+	while (data->next)
+	{
+		//printf("hey");
+		//printf("%s\n", data->value);
+		data = data->next;
+	}
+}
+
+void	parce_json(char *filename)
+{
+	int		fd;
+	char	*line;
+	int		ret;
+	t_json	*file;
+	t_json	*start;
+
+	fd = open(filename, O_RDONLY);
+	line = ft_strnew(0);
+	start = file;
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		if (ret == -1)
+		{
+			{
+				ft_strdel(&line);
+				exit(0);
+			}
+		}
+		else
+		{
+			file = ft_lstadd_to_end(&file, line);
+		}
+	}
+	file = start;
+	process_line(file);
 }
