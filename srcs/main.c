@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/06/21 16:40:14 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/06/27 22:48:02 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,11 +344,16 @@ int	main(int argc, char **argv)
 	game.elum.lights[3] = (t_light){(t_vec3){5, 0, -5}, 1.7};
 	game.elum.number = 1; // number of light sources
 
+
 	ft_object_push(&game, &(t_object){&(t_cone){(t_vec3){0, 2, -50}, ivory, 1.5, (t_vec3){0.5, 0.5, 0}, 30, (t_vec3){0, 2, -5}}, cone_intersection, cone_get_normal});
 	ft_object_push(&game, &(t_object){&(t_sphere){(t_vec3){1.5, -0.5, -18}, glass, 3, 5},sphere_intersection, sphere_get_normal});
 	ft_object_push(&game, &(t_object){&(t_sphere){(t_vec3){6, -0.5, -18}, ivory, 3, 5},sphere_intersection, sphere_get_normal});
 	ft_object_push(&game, &(t_object){&(t_cylinder){(t_vec3){-7, 2, -20}, red_rubber, 2,(t_vec3){0,1,0}, -2, 2}, cylinder_intersection, cylinder_get_normal});
-	//ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){0,0,-2}, (t_vec3){0,1,0}, ivory}, plane_intersection, plane_get_normal});
+	ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){0, 0, -20, 1}, (t_vec3){0, 0, 1, 1}, ivory}, plane_intersection, plane_get_normal});
+	ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){-20, 0, 0, 1}, (t_vec3){1, 0, 0, 1}, ivory}, plane_intersection, plane_get_normal});
+	ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){0, -5, 0, 1}, (t_vec3){0, 1, 0, 1}, ivory}, plane_intersection, plane_get_normal});
+	ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){0, 10, 0, 1}, (t_vec3){0, 1, 0, 1}, ivory}, plane_intersection, plane_get_normal});
+	ft_object_push(&game, &(t_object){&(t_plane){(t_vec3){20, 0, 0, 1}, (t_vec3){1, 0, 0, 1}, ivory}, plane_intersection, plane_get_normal});
 	
 	game.origin = (t_vec3){0,0,5,1};
 	ft_init_window(game.sdl, WIN_W, WIN_H);
