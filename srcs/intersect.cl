@@ -1,7 +1,7 @@
 
 __constant float EPSILON = 0.00003f; /* required to compensate for limited float precision */
 __constant float PI = 3.14159265359f;
-__constant int SAMPLES = 15;
+__constant int SAMPLES = 1;
 
 typedef struct Ray
 {
@@ -352,25 +352,7 @@ __kernel void render_kernel(__global int* output, int width, int height, int n_s
 	unsigned int work_item_id = get_global_id(0);	/* the unique global id of the work item for the current pixel */
 	unsigned int x_coord = work_item_id % width;			/* x-coordinate of the pixel */
 	unsigned int y_coord = work_item_id / width;			/* y-coordinate of the pixel */
-	
-	/* seeds for random number generator */
-	unsigned int seed0 = x_coord;
-	unsigned int seed1 = y_coord;
-	int seed = 1;
-
-
-	Ray ray =  createCamRay(x_coord, y_coord, width,  height);
-	t_cam cam = (t_cam){(float3)(0.0f, 0.1f, 2.f), ray.dir};
-	/* add the light contribution of each sample and average over all samples*/
-	float3 finalcolor = (float3)(0.0f, 0.0f, 0.0f);
-	float invSamples = 1.0f / SAMPLES;
-	float3 ffinalcolor = (float3)(0.0f, 0.0f, 0.0f);
-	for (int j = 0; j < 10; j++)
-	{
-		Ray camray = createCamRay(x_coord + get_random(&seed0, &j), y_coord + get_random(&seed1, &j), width, height);
-		for (int i = 0; i < SAMPLES; i++)
-			finalcolor += trace(spheres, &camray, n_spheres, &seed0, &seed1) * invSamples;
-		ffinalcolor += finalcolor / 10;
-	}
-	output[x_coord + y_coord * width] = ft_rgb_to_hex(toInt(ffinalcolor.x), toInt(ffinalcolor.y), toInt(ffinalcolor.z)); /* simple interpolated colour gradient based on pixel coordinates */
+	 float fx = (float)x_coord / (float)width; 
+ 	float fy = (float)y_coord / (float)height;
+	output[x_coord + y_coord * width] = ft_rgb_to_hex(toInt(fx), toInt(fy), toInt(0)); /* simple interpolated colour gradient based on pixel coordinates */
 }
