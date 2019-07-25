@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olesgedz <olesgedz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/07/20 19:48:59 by olesgedz         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:05:36 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ void 	ft_render(t_game* game)
 	int width = game->sdl->surface->width;
 	int height = game->sdl->surface->height;
 	j = -1;
+	bind_data(game->gpu, &game->main_objs);
 	ft_run_gpu(game->gpu);
-	
+	// ft_run_kernel(game->gpu, &game->gpu->ant_kernel, bind_data, sizeof(cl_int) * 9);
+	// ft_read_from_kernel(game->gpu, sizeof(cl_int) * (WIN_H * WIN_W));
 	while (++j < height)
 	{
 		i = -1;

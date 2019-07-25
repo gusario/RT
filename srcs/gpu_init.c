@@ -112,8 +112,27 @@ void ft_run_gpu(t_gpu *gpu)
 	size_t global = WIN_W * WIN_H;
 	const int count = global;
 	gpu->err = clEnqueueNDRangeKernel(gpu->commands, gpu->kernel, 1, NULL, &global, NULL, 0, NULL, NULL);
-	// clFinish(gpu->commands);
 	gpu->err = clEnqueueReadBuffer(gpu->commands, gpu->cl_bufferOut, CL_TRUE, 0, count * sizeof(cl_int), gpu->cpuOutput, 0, NULL, NULL);
+	//clFinish(gpu->commands);
+
+}
+
+void ft_run_kernel(t_gpu *gpu, cl_kernel *kernel, int (* ft_data_to_kernel)(t_gpu *gpu, t_main_obj *main), const size_t size)
+{	
+
+	if (ft_data_to_kernel  != NULL)
+	{
+		printf("binding data\n");
+		ft_data_to_kernel(gpu,  gpu->main_obj);
+	}
+	gpu->err = clEnqueueNDRangeKernel(gpu->commands, gpu->kernel, 1, NULL, &size, NULL, 0, NULL, NULL);
+}
+
+void ft_read_from_kernel(t_gpu *gpu, const size_t size)
+{
+	size_t global = WIN_W * WIN_H;
+	const int count = global;
+	gpu->err = clEnqueueReadBuffer(gpu->commands, gpu->cl_bufferOut, CL_TRUE, 0, sizeof(cl_int) * count, gpu->cpuOutput, 0, NULL, NULL);
 }
 
 cl_float3 create_cfloat3 (float x, float y, float z)
@@ -213,6 +232,7 @@ int opencl_init(t_gpu *gpu, t_game *game)
     int     i;
 	
     i = -1;
+	gpu->main_obj = &game->main_objs;
     gpu->err = clGetPlatformIDs(0, NULL, &gpu->numPlatforms);
     if (gpu->numPlatforms == 0)
         return (EXIT_FAILURE);
@@ -231,10 +251,11 @@ int opencl_init(t_gpu *gpu, t_game *game)
 	
     gpu_read_kernel(gpu);
 	gpu->kernel = clCreateKernel(gpu->program, "render_kernel", &gpu->err);
+	gpu->ant_kernel = clCreateKernel(gpu->program, "filter_kernel", &gpu->err);
 	gpu->cpuOutput = malloc(sizeof(int) * (WIN_H * WIN_H));
 	gpu->spheres = malloc(sizeof(t_obj) * 9);
 	initScene(gpu->spheres);
-	bind_data(gpu, &game->main_objs);
-    return (gpu->err);
-}
+	//bind_data(gpu, &game->main_objs);
 
+	return (gpu->err);
+}

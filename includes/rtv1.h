@@ -265,6 +265,7 @@ typedef struct s_gpu
     cl_command_queue	commands;      // compute command queue
     cl_program			program;       // compute program
     cl_kernel			kernel;       // compute kernel
+	cl_kernel  			ant_kernel;
 	cl_uint				numPlatforms;
 	cl_int				err;
 	char*				kernel_source;
@@ -272,6 +273,7 @@ typedef struct s_gpu
 	t_obj *spheres;
 	cl_mem cl_bufferOut;
 	cl_mem cl_cpuSpheres;
+	t_main_obj * main_obj;
 }				t_gpu;
 
 typedef struct s_game
@@ -390,4 +392,9 @@ double		plane_intersection(void *object, t_ray *ray, float *t0);
 
 
 int			opencl_init(t_gpu *gpu, t_game *game);
+void ft_run_kernel(t_gpu *gpu, cl_kernel *kernel,\
+ int (* ft_data_to_kernel)(t_gpu *gpu, t_main_obj *main), const size_t size);
+void ft_read_from_kernel(t_gpu *gpu, const size_t size);
+
+
 #endif
