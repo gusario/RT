@@ -10,6 +10,7 @@
 # include "SDL2/SDL.h"
 # include "SDL_image.h"
 # include "libft.h"
+# include <dirent.h>
 # include "libmath.h"
 # include "libsdl.h"
 # include "libvect.h"
@@ -17,7 +18,6 @@
 # include <limits.h>
 # include <float.h>
 # include <math.h>
-# include "cl_error.h"
 # include "libcl.h"
 # ifdef __APPLE__
 # include <OpenCL/opencl.h>

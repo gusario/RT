@@ -6,7 +6,7 @@
 #    By: lminta <lminta@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2019/09/25 18:57:10 by lminta           ###   ########.fr        #
+#    Updated: 2019/10/11 15:46:54 by lminta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS_LIST = main.c\
 			parse_sphere_plane.c\
 			parse_cone_cyl.c\
 			cl_float3_manage.c\
+			cl_float3_management.c\
 			keys.c\
 			camera.c\
 			const.c\

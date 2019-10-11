@@ -6,13 +6,13 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:55:58 by sbrella           #+#    #+#             */
-/*   Updated: 2019/10/11 15:56:05 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/11 16:30:09 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void					get_texture(char *name, t_txture *texture)
+void	get_texture(char *name, t_txture *texture)
 {
 	SDL_Surface			*surf;
 	SDL_Surface			*an_surf;
