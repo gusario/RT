@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/23 17:49:26 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 16:28:28 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ void		opencl(t_game *game, char *argv)
 	game->kernels[0].sizes[3] = WIN_H * WIN_W * sizeof(cl_ulong);
 	game->kernels[0].sizes[4] = sizeof(t_txture) * game->textures_num;
 
-	t_vect names;
-	vect_init(&names);
-	VECT_STRADD(&names, "render_kernel");
-	game->cl_info->ret = cl_krl_build(game->cl_info, game->kernels, fd, "-w -I srcs/cl_files/ -I includes/cl_headers/", &names);
+	t_vect *names = ft_memalloc(sizeof(t_vect));
+	vect_init(names);
+	vect_str_add(names, "render_kernel");
+	game->cl_info->ret = cl_krl_build(game->cl_info, game->kernels, fd, "-w -I srcs/cl_files/ -I includes/cl_headers/", names);
+	vect_del(names);
 	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[0], sizeof(cl_int) * WIN_H * WIN_W, game->gpuOutput);
 	ERROR(game->cl_info->ret);
