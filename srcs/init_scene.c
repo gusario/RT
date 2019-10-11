@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/11 20:21:12 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 22:47:17 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,7 @@
 
 static void	init_scene(t_obj* objects, t_game *game, char *argv)
 {
-	struct dirent	*name_buff;
-	DIR				*res;
-	int				i;
-
 	game->gpu.camera = NULL;
-	game->textures_num = 0;
-	if (!(res = opendir("textures")))
-		ft_exit(0);
-	while ((name_buff = readdir(res)))
-		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
-			game->textures_num++;
-	closedir(res);
-	game->textures = (t_txture*)malloc(sizeof(t_txture) * game->textures_num);
-	if (!(res = opendir("textures")))
-		ft_exit(0);
-	i = 0;
-	while ((name_buff = readdir(res)))
-		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
-		{
-			get_texture(name_buff->d_name, &(game->textures[i]));
-			i++;
-		}
-	closedir(res);
 	read_scene(argv, game);
 }
 
@@ -82,5 +60,4 @@ void	free_shit(t_game *game)
 	free(game->gpuOutput);
 	free(game->gpu.vec_temp);
 	free(game->gpu.random);
-	free(game->textures);
 }
