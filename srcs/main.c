@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/11 22:44:33 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 22:52:37 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void text_load(t_game *game, t_gui *gui)
 		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
 			game->textures_num++;
 	closedir(res);
-	game->textures = (t_txture*)malloc(sizeof(t_txture) * game->textures_num);
+	game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num);
 	if (!(res = opendir("textures")))
 		ft_exit(0);
 	i = 0;
@@ -34,7 +34,6 @@ static void text_load(t_game *game, t_gui *gui)
 		{
 			get_texture(name_buff->d_name, &(game->textures[i]));
 			i++;
-			printf("%s\n", name_buff->d_name);
 		}
 	closedir(res);
 }
