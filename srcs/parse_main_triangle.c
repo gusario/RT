@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main_triangle.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 19:04:09 by srobert-          #+#    #+#             */
-/*   Updated: 2019/09/24 18:32:17 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 15:46:07 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ void		read_scene(char *argv, t_game *game)
 
 	light_num = 0;
 	if ((fd = open(argv, O_RDONLY)) <= 0)
-		terminate("fuck you\n");
+		terminate("no file\n");
 	while (get_next_line(fd, &line))
 	{
 		if (ft_strlen(line) == 0)
 		{
-			free(line);
+			ft_strdel(&line);
 			continue;
 		}
 		data = ft_strsplit(line, '\t');
@@ -103,7 +103,7 @@ void		read_scene(char *argv, t_game *game)
 			data = ft_strsplit(line, ' ');
 		}
 		obj_type(data, game);
-		free(line);
+		ft_strdel(&line);
 	}
 	close(fd);
 }
