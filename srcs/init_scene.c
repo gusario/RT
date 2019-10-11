@@ -6,11 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/10/11 16:28:28 by jblack-b         ###   ########.fr       */
-=======
-/*   Updated: 2019/10/11 15:52:37 by lminta           ###   ########.fr       */
->>>>>>> dbbda2e1cd9dfd026254aa77d0c820c693bf11c2
+/*   Updated: 2019/10/11 16:45:59 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +14,12 @@
 
 static void	init_scene(t_obj* objects, t_game *game, char *argv)
 {
-	char						*name = "sobenin.jpg";
-	char						*secname = "sun.jpg";
-	char						*thirdname = "seamless_pawnment.jpg";
-	char						*fourthname = "grass_rock.jpg";
-	char						*fivename = "ice.jpg";
-	char						*sixname = "stars.jpg";
+	char						*name = "71_sobenin.jpg";
+	char						*secname = "76_sun.jpg";
+	char						*thirdname = "69_seamless_pawnment.jpg";
+	char						*fourthname = "61_grass_rock.jpg";
+	char						*fivename = "63_ice.jpg";
+	char						*sixname = "74_stars.jpg";
 
 	game->textures_num = 6;
 	game->textures = (t_txture*)malloc(sizeof(t_txture) * game->textures_num);
@@ -36,29 +32,29 @@ static void	init_scene(t_obj* objects, t_game *game, char *argv)
 	get_texture(sixname, &(game->textures[5]));
 	read_scene(argv, game);
 
-	struct dirent	*name_buff;
-	char			*buff;
-	DIR				*res;
-	t_xy			i;
+	// struct dirent	*name_buff;
+	// char			*buff;
+	// DIR				*res;
+	// t_xy			i;
 
-	if (!(res = opendir(dirname)))
-		close_wolf(m_s, 1);
-	while ((name_buff = readdir(res)))
-		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
-		{
-			buff = ft_strjoin(dirname, name_buff->d_name);
-			i = parse_num(name_buff->d_name);
-			if (m_s->tex[(int)i.x].frames[(int)i.y] == m_s->sdl.error_surf)
-				if (!(m_s->tex[(int)i.x].frames[(int)i.y] = load_picture(buff)))
-					m_s->tex[(int)i.x].frames[(int)i.y] = m_s->sdl.error_surf;
-			if ((int)i.y == 0)
-				m_s->tex[(int)i.x].freq = i.intery;
-			if (m_s->tex[(int)i.x].frames[(int)i.y] != m_s->sdl.error_surf &&
-			(int)i.y + 1 > m_s->tex[(int)i.x].len)
-				m_s->tex[(int)i.x].len = (int)i.y + 1;
-			free(buff);
-		}
-	closedir(res);
+	// if (!(res = opendir(dirname)))
+	// 	close_wolf(m_s, 1);
+	// while ((name_buff = readdir(res)))
+	// 	if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
+	// 	{
+	// 		buff = ft_strjoin(dirname, name_buff->d_name);
+	// 		i = parse_num(name_buff->d_name);
+	// 		if (m_s->tex[(int)i.x].frames[(int)i.y] == m_s->sdl.error_surf)
+	// 			if (!(m_s->tex[(int)i.x].frames[(int)i.y] = load_picture(buff)))
+	// 				m_s->tex[(int)i.x].frames[(int)i.y] = m_s->sdl.error_surf;
+	// 		if ((int)i.y == 0)
+	// 			m_s->tex[(int)i.x].freq = i.intery;
+	// 		if (m_s->tex[(int)i.x].frames[(int)i.y] != m_s->sdl.error_surf &&
+	// 		(int)i.y + 1 > m_s->tex[(int)i.x].len)
+	// 			m_s->tex[(int)i.x].len = (int)i.y + 1;
+	// 		free(buff);
+	// 	}
+	// closedir(res);
 }
 
 void		opencl(t_game *game, char *argv)
