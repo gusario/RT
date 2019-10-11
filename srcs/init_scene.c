@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/23 17:49:26 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 15:52:37 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void	init_scene(t_obj* objects, t_game *game, char *argv)
 	char						*fivename = "ice.jpg";
 	char						*sixname = "stars.jpg";
 
-	game->textures_num 			= 6;
-	game->textures 				= (t_txture*)malloc(sizeof(t_txture) * game->textures_num);
-	game->gpu.camera			= NULL;
+	game->textures_num = 6;
+	game->textures = (t_txture*)malloc(sizeof(t_txture) * game->textures_num);
+	game->gpu.camera = NULL;
 	get_texture(name, &(game->textures[0]));
 	get_texture(secname, &(game->textures[1]));
 	get_texture(thirdname, &(game->textures[2]));
@@ -31,6 +31,30 @@ static void	init_scene(t_obj* objects, t_game *game, char *argv)
 	get_texture(fivename, &(game->textures[4]));
 	get_texture(sixname, &(game->textures[5]));
 	read_scene(argv, game);
+
+	struct dirent	*name_buff;
+	char			*buff;
+	DIR				*res;
+	t_xy			i;
+
+	if (!(res = opendir(dirname)))
+		close_wolf(m_s, 1);
+	while ((name_buff = readdir(res)))
+		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
+		{
+			buff = ft_strjoin(dirname, name_buff->d_name);
+			i = parse_num(name_buff->d_name);
+			if (m_s->tex[(int)i.x].frames[(int)i.y] == m_s->sdl.error_surf)
+				if (!(m_s->tex[(int)i.x].frames[(int)i.y] = load_picture(buff)))
+					m_s->tex[(int)i.x].frames[(int)i.y] = m_s->sdl.error_surf;
+			if ((int)i.y == 0)
+				m_s->tex[(int)i.x].freq = i.intery;
+			if (m_s->tex[(int)i.x].frames[(int)i.y] != m_s->sdl.error_surf &&
+			(int)i.y + 1 > m_s->tex[(int)i.x].len)
+				m_s->tex[(int)i.x].len = (int)i.y + 1;
+			free(buff);
+		}
+	closedir(res);
 }
 
 void		opencl(t_game *game, char *argv)
@@ -47,7 +71,6 @@ void		opencl(t_game *game, char *argv)
 	cl_mem			textures;
 	init_scene(game->gpu.objects, game, argv);
 	cl_init(game->cl_info);
-	ERROR(game->cl_info->ret);
 	int fd = open("srcs/cl_files/main.cl", O_RDONLY);
 	size_t global = WIN_W * WIN_H;
 	cl_krl_init(&game->kernels[0], 5);
@@ -61,17 +84,11 @@ void		opencl(t_game *game, char *argv)
 	vect_init(&names);
 	VECT_STRADD(&names, "render_kernel");
 	game->cl_info->ret = cl_krl_build(game->cl_info, game->kernels, fd, "-w -I srcs/cl_files/ -I includes/cl_headers/", &names);
-	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[0], sizeof(cl_int) * WIN_H * WIN_W, game->gpuOutput);
-	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[1], sizeof(t_obj) * game->obj_quantity, game->gpu.objects);
-	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[2], sizeof(cl_float3) * WIN_H * WIN_W, game->gpu.vec_temp);
-	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[3], WIN_H * WIN_W * sizeof(cl_ulong), game->gpu.random);
-	ERROR(game->cl_info->ret);
 	game->cl_info->ret = cl_write(game->cl_info, game->kernels[0].args[4], sizeof(t_txture) * game->textures_num, game->textures);
-	ERROR(game->cl_info->ret);
 }
 
 void	free_shit(t_game *game)

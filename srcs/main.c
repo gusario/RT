@@ -6,13 +6,13 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/09/26 19:47:19 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/11 14:48:14 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void the_loopa(t_game *game, t_gui *gui, int argc)
+static void	the_loopa(t_game *game, t_gui *gui, int argc)
 {
 	while (game->av)
 	{
