@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/11 22:52:37 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 17:29:04 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void text_load(t_game *game, t_gui *gui)
 {
 	struct dirent	*name_buff;
 	DIR				*res;
-	int				i;
 
 	game->textures_num = 0;
 	if (!(res = opendir("textures")))
@@ -28,13 +27,9 @@ static void text_load(t_game *game, t_gui *gui)
 	game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num);
 	if (!(res = opendir("textures")))
 		ft_exit(0);
-	i = 0;
 	while ((name_buff = readdir(res)))
 		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
-		{
-			get_texture(name_buff->d_name, &(game->textures[i]));
-			i++;
-		}
+			get_texture(name_buff->d_name, &(game->textures[atoi(name_buff->d_name)]));
 	closedir(res);
 }
 

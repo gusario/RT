@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/11 22:56:33 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/13 19:14:39 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void		opencl(t_game *game, char *argv)
 	game->gpu.random = get_random(game->gpu.random);
 	game->gpu.samples = 0;
 	game->cam_num = 0;
-	cl_mem			textures;
 	game->gpu.camera = NULL;
 	read_scene(argv, game);
 	cl_init(game->cl_info);
