@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:55:58 by sbrella           #+#    #+#             */
-/*   Updated: 2019/10/14 18:21:43 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:32:41 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	get_texture(char *name, t_txture *texture)
 		ft_memcpy(texture->texture, surf->pixels, (surf->h) * surf->pitch);
 	else
 		exit(0);
-	SDL_FreeSurface(surf);
+	//SDL_FreeSurface(surf);
 }

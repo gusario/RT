@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/14 19:27:57 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:34:54 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void text_load(t_game *game, t_gui *gui)
 		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
 			game->textures_num++;
 	closedir(res);
-		game->textures_num = 10;
-	if (!(game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num + 1)))
+	if (!(game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num)))
 	{
 		ft_putstr("Memory error \n");
 	}
