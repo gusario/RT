@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:21:19 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/24 21:42:37 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 20:47:10 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,4 @@ void	loopa(t_gui *gui)
 		KW_Paint(gui->gui);
 		SDL_RenderPresent(gui->sdl.renderer);
 	}
-}
-
-void	quit_kiwi(t_gui *gui)
-{
-	SDL_DestroyTexture(gui->ed_w.backtex);
-	KW_DestroyWidget(gui->ed_w.frame, 1);
-	KW_DestroyWidget(gui->s_s.frame, 1);
-	KW_ReleaseSurface(gui->driver, gui->set);
-	//KW_ReleaseRenderDriver(gui->driver);
-	KW_Quit(gui->gui);
 }

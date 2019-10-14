@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 16:30:29 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/11 15:53:53 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 20:14:13 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	clicked(KW_Widget *widget, int b)
 
 static void	first_button(t_gui *gui, struct dirent *name_buff)
 {
-	gui->s_s.names[0] = name_buff->d_name;
+	gui->s_s.names[0] = ft_strdup(name_buff->d_name);
 	gui->s_s.rects[0] = &gui->s_s.buttonrect[0];
 	KW_RectFillParentHorizontally(&gui->s_s.frect,
 	gui->s_s.rects, gui->s_s.weights, 1, 15,
@@ -52,14 +52,14 @@ static int	scan_dir(t_gui *gui)
 		return (-1);
 	while ((name_buff = readdir(res)) && i < MAX_SC)
 	{
-		gui->s_s.names[i] = name_buff->d_name;
+		gui->s_s.names[i] = ft_strdup(name_buff->d_name);
 		gui->s_s.buttonrect[i] = gui->s_s.buttonrect[i - 1];
 		gui->s_s.buttonrect[i].y += 45;
 		if (i < WIN_H / 45 - 3)
 			gui->s_s.frect.h += 45;
 		i++;
 	}
-	//closedir(res);
+	closedir(res);
 	return (i);
 }
 
@@ -97,6 +97,7 @@ void		scene_select(t_gui *gui)
 		gui->s_s.buttons[i] = KW_CreateButtonAndLabel(gui->gui,
 gui->s_s.frame, gui->s_s.names[i], &gui->s_s.buttonrect[i]);
 		KW_AddWidgetMouseDownHandler(gui->s_s.buttons[i], clicked);
-		KW_SetWidgetUserData(gui->s_s.buttons[i], gui->s_s.names[i]);
+		KW_SetWidgetUserData(gui->s_s.buttons[i], ft_strdup(gui->s_s.names[i]));
+		free(gui->s_s.names[i]);
 	}
 }

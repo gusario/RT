@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/14 19:57:22 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 20:54:01 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ int			main(int argc, char **argv)
 	gui.main_screen = 0;
 	ft_init_window(&game.sdl, WIN_W, WIN_H);
 	set_const(&game, &gui);
+	text_load(&game, &gui);
 	if (argc != 2)
 		game.av = start_gui(&gui);
 	else
 		game.av = argv[1];
 	SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR));
-	init_kiwi(&gui);
 	gui.main_screen = 1;
 	scene_select(&gui);
-	text_load(&game, &gui);
 	main_loop(&game, &gui, argc);
 	quit_kiwi_main(&gui);
 	//release_gpu(game.gpu);

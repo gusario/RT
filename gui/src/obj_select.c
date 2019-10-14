@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:08:02 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/26 19:59:54 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 21:03:59 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	scan_mass(t_gui *gui, t_obj *objs, int num)
 			gui->o_s.frect.h += 45;
 		i++;
 	}
+	if (i < MAX_OBJ)
+		gui->o_s.names[i] = 0;
 	return (i);
 }
 

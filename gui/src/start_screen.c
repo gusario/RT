@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/25 16:10:13 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 20:47:01 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char		*start_gui(t_gui *gui)
 	start_screen(gui);
 	scene_select(gui);
 	loopa(gui);
-	quit_kiwi(gui);
+	SDL_DestroyTexture(gui->ed_w.backtex);
+	KW_DestroyWidget(gui->ed_w.frame, 1);
 	return (gui->av);
 }
