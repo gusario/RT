@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 20:47:01 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:48:03 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		start_screen(t_gui *gui)
 
 char		*start_gui(t_gui *gui)
 {
-	init_kiwi(gui);
 	start_screen(gui);
 	scene_select(gui);
 	loopa(gui);
