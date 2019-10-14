@@ -242,8 +242,8 @@ __global float3 * vect_temp,  __global ulong * random,  __global t_txture *textu
 	 unsigned int seed1 = y_coord + rng(random);
 	finalcolor = vect_temp[x_coord + y_coord * width];
 
-	scene_new(objects, n_objects, width, height, samples, random, textures, camera, &scene);
-	// print_debug(scene.samples, scene.width, &scene);
+	 scene_new(objects, n_objects, width, height, samples, random, textures, camera, &scene);
+	// // print_debug(scene.samples, scene.width, &scene);
 	for (int i = 0; i < SAMPLES; i++)
 	{
 		createCamRay(width, height, &scene, &(intersection.ray));
@@ -254,4 +254,11 @@ __global float3 * vect_temp,  __global ulong * random,  __global t_txture *textu
 
 	output[scene.x_coord + scene.y_coord * width] = ft_rgb_to_hex(toInt(finalcolor.x  / samples),
 	 toInt(finalcolor.y  / samples), toInt(finalcolor.z  / samples)); /* simple interpolated colour gradient based on pixel coordinates */
+	// if(scene.x_coord == 200  && scene.y_coord == 200)
+	// {	
+	// 	printf("ok\n");
+	// 	printf("%d\n", textures[3].texture[x_coord + y_coord * 4096]);
+
+	// }
+	// output[scene.x_coord + scene.y_coord * width] = textures[1].texture[x_coord + y_coord * 4096];
 }

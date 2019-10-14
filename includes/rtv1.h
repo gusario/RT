@@ -34,7 +34,17 @@
 # define GMASK 0x0000ff00
 # define BMASK 0x00ff0000
 # define AMASK 0xff000000
-# define DROUND(d)	ABS(d) < 0.00001 ? 0 : (d)
+#include <stdio.h>
+
+# define ERROR(data)						\
+	if ((data))							\
+	{											\
+		printf("{red!}Error\n");	\
+		printf("file : %s\n", __FILE__);		\
+		printf("function : %s\n", __func__);	\
+		printf("line : %d\n", __LINE__);		\
+		exit(1);								\
+	}
 
 typedef enum			e_figure
 {
@@ -190,8 +200,8 @@ void					camera_reposition(t_game *game, t_gui *gui);
 void					set_const(t_game *game, t_gui *gui);
 void					opencl(t_game *game, char *argv);
 cl_ulong				*get_random(cl_ulong *random);
-void					poopa(t_game *game, t_gui *gui);
-void					free_shit(t_game *game);
+void					render_loop(t_game *game, t_gui *gui);
+void					free_stuff(t_game *game);
 void					terminate(char *s);
 void					feel_free(char **str);
 void					ft_object_push(t_game *game, t_obj *object);

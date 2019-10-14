@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/11 22:52:37 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 19:26:28 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,24 @@ static void text_load(t_game *game, t_gui *gui)
 		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
 			game->textures_num++;
 	closedir(res);
-	game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num);
+		game->textures_num = 10;
+	if (!(game->textures = (t_txture *)malloc(sizeof(t_txture) * game->textures_num + 1)))
+	{
+		ft_putstr("Memory error \n");
+	}
 	if (!(res = opendir("textures")))
 		ft_exit(0);
 	i = 0;
-	while ((name_buff = readdir(res)))
-		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)))
+	while ((name_buff = readdir(res))){printf("ok\n");
+		if (name_buff->d_type == 8 && ft_isdigit(*(name_buff->d_name)) && i < 10)
 		{
 			get_texture(name_buff->d_name, &(game->textures[i]));
 			i++;
-		}
+		}}
 	closedir(res);
 }
 
-static void	the_loopa(t_game *game, t_gui *gui, int argc)
+static void	main_loop(t_game *game, t_gui *gui, int argc)
 {
 	while (game->av)
 	{
@@ -51,7 +55,7 @@ static void	the_loopa(t_game *game, t_gui *gui, int argc)
 		game->quit = 0;
 		gui->quit = 0;
 		game->flag = 1;
-		poopa(game, gui);
+		render_loop(game, gui);
 		main_screen_free(gui);
 	}
 }
@@ -73,7 +77,7 @@ int			main(int argc, char **argv)
 	gui.main_screen = 1;
 	scene_select(&gui);
 	text_load(&game, &gui);
-	the_loopa(&game, &gui, argc);
+	main_loop(&game, &gui, argc);
 	quit_kiwi_main(&gui);
 	//release_gpu(game.gpu);
 	ft_exit(NULL);
