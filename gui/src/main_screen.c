@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 16:46:11 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 21:39:26 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:17:53 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	main_screen_free(t_gui *gui)
 	i = -1;
 	while (gui->o_s.names[++i] && i < MAX_OBJ)
 		free(gui->o_s.names[i]);
+	KW_RemoveWidgetGeometryChangeHandler(gui->o_s.frame, 0);
+	KW_RemoveWidgetTilesetChangeHandler(gui->o_s.frame, 0);
 	KW_DestroyWidget(gui->o_s.frame, 1);
-	//free(gui->o_s.frame);
 }
 
 void	quit_kiwi_main(t_gui *gui)
