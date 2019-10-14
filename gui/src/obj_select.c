@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:08:02 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 21:03:59 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 22:35:04 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ static int	scan_mass(t_gui *gui, t_obj *objs, int num)
 			gui->o_s.frect.h += 45;
 		i++;
 	}
-	if (i < MAX_OBJ)
-		gui->o_s.names[i] = 0;
 	return (i);
 }
 
@@ -88,6 +86,12 @@ void		obj_select(t_gui *gui, t_obj *objs, int num)
 	unsigned			test;
 	KW_Widget *const	*wid_arr;
 
+	i = -1;
+	while (++i < MAX_OBJ)
+	{
+		gui->o_s.buttons[i] = 0;
+		gui->o_s.names[i] = 0;
+	}
 	i = -1;
 	gui->o_s.weights[0] = 1;
 	fr_sz = WIN_W / 10.;
