@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main_triangle.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 19:04:09 by srobert-          #+#    #+#             */
-/*   Updated: 2019/10/11 15:46:07 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 23:25:59 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,14 @@ void		read_scene(char *argv, t_game *game)
 	char	*line;
 	char	**data;
 	int		light_num;
-
+	int err;
 	light_num = 0;
 	if ((fd = open(argv, O_RDONLY)) <= 0)
 		terminate("no file\n");
-	while (get_next_line(fd, &line))
+	while ((err = get_next_line(fd, &line)))
 	{
+		if (err == -1)
+			terminate("no file\n");
 		if (ft_strlen(line) == 0)
 		{
 			ft_strdel(&line);
