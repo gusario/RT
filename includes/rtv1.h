@@ -190,7 +190,7 @@ void					camera_reposition(t_game *game, t_gui *gui);
 void					set_const(t_game *game, t_gui *gui);
 void					opencl(t_game *game, char *argv);
 cl_ulong				*get_random(cl_ulong *random);
-void					poopa(t_game *game, t_gui *gui);
+void					main_render(t_game *game, t_gui *gui);
 void					free_shit(t_game *game);
 void					terminate(char *s);
 void					feel_free(char **str);

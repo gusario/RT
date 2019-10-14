@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:54:28 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/11 15:40:45 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 19:56:39 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		screen_present(t_game *game, t_gui *gui)
 	SDL_RenderPresent(game->sdl.renderer);
 }
 
-void			poopa(t_game *game, t_gui *gui)
+void			main_render(t_game *game, t_gui *gui)
 {
 	SDL_RenderClear(game->sdl.renderer);
 	while (!game->quit && !gui->quit)

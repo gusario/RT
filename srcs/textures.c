@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:55:58 by sbrella           #+#    #+#             */
-/*   Updated: 2019/10/14 19:49:39 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 19:55:42 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_texture(char *name, t_txture *texture)
 	fmt->Amask = AMASK;		//			\/
 	surf = SDL_ConvertSurface(an_surf, fmt, an_surf->flags);
 	SDL_FreeSurface(an_surf);
-	free(fmt);
+	ft_memdel((void **)&fmt);
 	texture->width = surf->w;
 	texture->height = surf->h;
 	if (texture->height * texture->width <= 4096 * 2048)

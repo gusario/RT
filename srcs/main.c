@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/14 17:29:04 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 19:57:22 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void text_load(t_game *game, t_gui *gui)
 	closedir(res);
 }
 
-static void	the_loopa(t_game *game, t_gui *gui, int argc)
+static void	main_loop(t_game *game, t_gui *gui, int argc)
 {
 	while (game->av)
 	{
@@ -46,7 +46,7 @@ static void	the_loopa(t_game *game, t_gui *gui, int argc)
 		game->quit = 0;
 		gui->quit = 0;
 		game->flag = 1;
-		poopa(game, gui);
+		main_render(game, gui);
 		main_screen_free(gui);
 	}
 }
@@ -68,7 +68,7 @@ int			main(int argc, char **argv)
 	gui.main_screen = 1;
 	scene_select(&gui);
 	text_load(&game, &gui);
-	the_loopa(&game, &gui, argc);
+	main_loop(&game, &gui, argc);
 	quit_kiwi_main(&gui);
 	//release_gpu(game.gpu);
 	ft_exit(NULL);
