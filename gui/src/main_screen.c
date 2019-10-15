@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 16:46:11 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 23:30:15 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:11:07 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,22 @@ void	main_screen_free(t_gui *gui)
 		KW_RemoveWidgetTilesetChangeHandler(gui->o_s.buttons[i], 0);
 		KW_RemoveWidgetMouseDownHandler(gui->o_s.buttons[i], 0);
 	}
-	KW_RemoveWidgetGeometryChangeHandler(gui->o_s.frame, 0);
-	KW_RemoveWidgetTilesetChangeHandler(gui->o_s.frame, 0);
-	KW_DestroyWidget(gui->o_s.frame, 1);
+	if (gui->o_s.max_i > 0)
+	{
+		KW_RemoveWidgetGeometryChangeHandler(gui->o_s.frame, 0);
+		KW_RemoveWidgetTilesetChangeHandler(gui->o_s.frame, 0);
+		KW_DestroyWidget(gui->o_s.frame, 1);
+	}
 }
 
 void	quit_kiwi_main(t_gui *gui)
 {
-	KW_RemoveWidgetGeometryChangeHandler(gui->s_s.frame, 0);
-	KW_RemoveWidgetTilesetChangeHandler(gui->s_s.frame, 0);
-	KW_DestroyWidget(gui->s_s.frame, 1);
+	if (gui->s_s.max_i > 0)
+	{
+		KW_RemoveWidgetGeometryChangeHandler(gui->s_s.frame, 0);
+		KW_RemoveWidgetTilesetChangeHandler(gui->s_s.frame, 0);
+		KW_DestroyWidget(gui->s_s.frame, 1);
+	}
 	KW_ReleaseSurface(gui->driver, gui->set);
-	// KW_ReleaseRenderDriver(gui->driver);
 	KW_Quit(gui->gui);
 }

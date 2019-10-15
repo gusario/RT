@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:14:40 by lminta            #+#    #+#             */
-/*   Updated: 2019/09/25 18:01:57 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 15:26:55 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_scene_select
 	unsigned		weights[1];
 	KW_Widget		*buttons[MAX_SC];
 	char			*names[MAX_SC];
+	int				max_i;
 }					t_scene_select;
 
 typedef struct		s_object_select
@@ -50,6 +51,7 @@ typedef struct		s_object_select
 	unsigned		weights[1];
 	KW_Widget		*buttons[MAX_OBJ];
 	char			*names[MAX_OBJ];
+	int				max_i;
 }					t_object_select;
 
 typedef struct		s_edit_win
