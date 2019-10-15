@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 22:48:03 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/14 23:13:41 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ok_clicked(KW_Widget *widget, int b)
 	t_gui	*gui;
 
 	gui = g_gui(0, 0);
-	gui->av = (char *)KW_GetEditboxText(gui->ed_w.editBox);
+	gui->av = ft_strdup((char *)KW_GetEditboxText(gui->ed_w.editBox));
 	gui->quit = KW_TRUE;
 }
 
