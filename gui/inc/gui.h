@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:14:40 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/15 15:26:55 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:26:38 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct		s_gui
 
 void				print_error_gui(const char *message, const char *error_message);
 char				*start_gui(t_gui *gui);
-void				scene_select(t_gui *gui);
+void				scene_select(t_gui *gui, int i, KW_Widget *const *wid_arr);
 void				start_screen(t_gui *gui);
 void				init_kiwi(t_gui *gui);
 void				quit_kiwi(t_gui *gui);

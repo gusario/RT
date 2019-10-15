@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 16:30:29 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/15 16:12:03 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:26:07 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,42 +51,42 @@ static int	scan_dir(t_gui *gui)
 	else
 		return (-1);
 	while ((name_buff = readdir(res)) && i < MAX_SC)
-	{
 		if (ft_strstr(name_buff->d_name, ".sc") && name_buff->d_type == 8)
 		{
 			gui->s_s.names[i] = ft_strdup(name_buff->d_name);
 			gui->s_s.buttonrect[i] = gui->s_s.buttonrect[i - 1];
 			gui->s_s.buttonrect[i].y += 45;
-			if (i < WIN_H / 45 - 3)
+			if (i++ < WIN_H / 45 - 3)
 				gui->s_s.frect.h += 45;
-			i++;
 		}
-	}
 	closedir(res);
 	return (i);
 }
 
-void		scene_select(t_gui *gui)
+static int	param_set(t_gui *gui)
 {
-	int					i;
 	int					fr_sz;
-	unsigned			test;
-	KW_Widget *const	*wid_arr;
 
-	i = -1;
 	gui->s_s.weights[0] = 1;
 	fr_sz = WIN_W / 10.;
 	gui->s_s.frect = (KW_Rect){10, 10, fr_sz, 100};
 	gui->s_s.titlerect = (KW_Rect){10, 10, fr_sz - 20, 30};
 	gui->s_s.buttonrect[0] = (KW_Rect){0, 0, 30, 40};
-	if ((gui->s_s.max_i = scan_dir(gui)) == -1)
+	return (scan_dir(gui));
+}
+
+void		scene_select(t_gui *gui, int i, KW_Widget *const *wid_arr)
+{
+	unsigned			test;
+
+	if ((gui->s_s.max_i = param_set(gui)) == -1)
 		return ;
 	if (gui->s_s.max_i > WIN_H / 45 - 3)
 	{
 		gui->s_s.frame = KW_CreateScrollbox(gui->gui, NULL, &gui->s_s.frect);
 		wid_arr = KW_GetWidgetChildren(gui->s_s.frame, &test);
 		KW_HideWidget(wid_arr[2]);
-		gui->s_s.titlerect = (KW_Rect){0, 10, fr_sz - 30, 30};
+		gui->s_s.titlerect = (KW_Rect){0, 10, WIN_W / 10. - 30, 30};
 	}
 	else
 		gui->s_s.frame = KW_CreateFrame(gui->gui, NULL, &gui->s_s.frect);
@@ -95,7 +95,7 @@ void		scene_select(t_gui *gui)
 	while (++i < gui->s_s.max_i)
 	{
 		if (gui->s_s.max_i > WIN_H / 45 - 3)
-		gui->s_s.buttonrect[i].x -= 15;
+			gui->s_s.buttonrect[i].x -= 15;
 		gui->s_s.buttons[i] = KW_CreateButtonAndLabel(gui->gui,
 gui->s_s.frame, gui->s_s.names[i], &gui->s_s.buttonrect[i]);
 		KW_AddWidgetMouseDownHandler(gui->s_s.buttons[i], clicked);

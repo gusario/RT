@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 19:04:09 by srobert-          #+#    #+#             */
-/*   Updated: 2019/10/14 23:25:59 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:48:48 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ void		read_scene(char *argv, t_game *game)
 	int		fd;
 	char	*line;
 	char	**data;
-	int		light_num;
-	int err;
-	light_num = 0;
-	if ((fd = open(argv, O_RDONLY)) <= 0)
-		terminate("no file\n");
+	int		err;
+
+	fd = open(argv, O_RDONLY);
 	while ((err = get_next_line(fd, &line)))
 	{
 		if (err == -1)

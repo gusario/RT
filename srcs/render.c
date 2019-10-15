@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:54:28 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 22:51:54 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:36:55 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		ft_render(t_game *game, t_gui *gui)
 	game->flag = 0;
 	gui->flag = 0;
 	ft_run_kernel(game, game->kernels[0].krl, WIN_W, WIN_H);
-	//game->sdl.surface->data = (Uint32 *)game->gpuOutput;
 }
 
 static void		screen_present(t_game *game, t_gui *gui)

@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 23:13:41 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/15 16:26:57 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		start_screen(t_gui *gui)
 char		*start_gui(t_gui *gui)
 {
 	start_screen(gui);
-	scene_select(gui);
+	scene_select(gui, -1, 0);
 	loopa(gui);
 	SDL_DestroyTexture(gui->ed_w.backtex);
 	KW_DestroyWidget(gui->ed_w.frame, 1);
