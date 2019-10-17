@@ -28,14 +28,15 @@ static float intersect_cone(const t_obj* cone, const t_ray *  ray) /* version us
 	float	c = dot(x, cone->v) * dot(x, cone->v) - dot(x,x) * angle * angle;
 
 	float d = b*b - 4.f * a * c;
+	if(d < EPSILON) 
+		return 0.f;
 	d = sqrt(d);
 	float t1 = (-b - d) / (2. * a);
 	float t2 = (-b + d) / (2. * a);
 	float t = t1;
 	if(t < EPSILON || t2 > EPSILON && t2 < t)
 		t = t2;
-	if(t < EPSILON) 
-		return 0.f;
+
 	return (t);
 }
 
