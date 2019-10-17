@@ -36,7 +36,6 @@ static float intersect_cone(const t_obj* cone, const t_ray *  ray) /* version us
 	float t = t1;
 	if(t < EPSILON || t2 > EPSILON && t2 < t)
 		t = t2;
-
 	return (t);
 }
 

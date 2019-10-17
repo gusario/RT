@@ -10,6 +10,9 @@ static float3	get_cone_normal(t_obj * object, t_intersection * intersection)
 	tangent = cross(center_to_point, object->v);
 	norm = cross(tangent, center_to_point);
 	return(normalize(norm));
+
+	// norm = ((intersection->hitpoint - object->position) * dot(object->v, intersection->hitpoint) / dot(intersection->hitpoint,intersection->hitpoint) - object->v);
+	// return (normalize(norm));
 }
 
 static float3	get_cylinder_normal(t_obj * object, t_intersection * intersection)
