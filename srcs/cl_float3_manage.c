@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cl_float3_manage.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbrella <sbrella@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:03:05 by sbrella           #+#    #+#             */
-/*   Updated: 2019/10/11 15:19:59 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/17 22:11:02 by sbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void		rotate_horizontal(t_cam *camera, float angle)
 {
 	cl_float3	axis;
 
-	axis = create_cfloat3(0.0f, -1.0f, 0.0f);
-	camera->direction = rotate(axis, camera->direction, angle);
-	camera->normal = rotate(axis, camera->normal, angle);
+	axis = camera->normal;
+	camera->direction = rotate(axis, camera->direction, -angle);
 }
 
 void		rotate_vertical(t_cam *camera, float angle)
