@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/15 16:26:57 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/17 15:11:17 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char		*start_gui(t_gui *gui)
 	scene_select(gui, -1, 0);
 	loopa(gui);
 	SDL_DestroyTexture(gui->ed_w.backtex);
+	KW_RemoveWidgetGeometryChangeHandler(gui->ed_w.frame, 0);
+	KW_RemoveWidgetTilesetChangeHandler(gui->ed_w.frame, 0);
 	KW_DestroyWidget(gui->ed_w.frame, 1);
 	return (gui->av);
 }
