@@ -17,7 +17,7 @@ static float3	get_cylinder_normal(t_obj * object, t_intersection * intersection)
 		float3		norm;
 		float3		cp = object->position - intersection->hitpoint;
 		float3		g = dot(object->v, cp) * object->v;
-	
+
 		norm = normalize(g - cp);
 		return(norm);
 	}
@@ -46,10 +46,10 @@ float3 get_normal(t_obj * object, t_intersection * intersection)
 	 	normal = get_cone_normal(object, intersection);
 	else if (object->type == TRIANGLE)
 		normal = object->v;
-	else 
+	else
 		normal = sphere_get_normal(object, intersection);
 
 	// if (sphere->type == CYLINDER)
-	// 
+	//
 	return (normalize(normal));
 }
