@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   libvect.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 20:15:41 by jblack-b          #+#    #+#             */
-/*   Updated: 2019/09/02 20:15:42 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:02:58 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef LIBVECT_H
 # define LIBVECT_H

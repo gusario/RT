@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   vect_mset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 20:06:04 by jblack-b          #+#    #+#             */
-/*   Updated: 2019/09/02 20:06:05 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:03:23 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "libvect.h"
 #include "malloc.h"
