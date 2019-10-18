@@ -6,13 +6,14 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/14 22:51:28 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 18:55:56 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		opencl(t_game *game, char *argv)
+
+void opencl_init(t_game *game, char *argv)
 {
 	game->kernels = ft_memalloc(sizeof(t_cl_krl) * 2);
 	game->cl_info = ft_memalloc(sizeof(t_cl_info));
@@ -22,10 +23,16 @@ void		opencl(t_game *game, char *argv)
 	game->gpu.samples = 0;
 	game->cam_num = 0;
 	game->gpu.camera = NULL;
-	read_scene(argv, game);
 	cl_init(game->cl_info);
+
+}
+
+
+void		opencl(t_game *game, char *argv)
+{
+	
+	read_scene(argv, game);
 	int fd = open("srcs/cl_files/main.cl", O_RDONLY);
-	size_t global = WIN_W * WIN_H;
 	cl_krl_init(&game->kernels[0], 5);
 	game->kernels[0].sizes[0] = sizeof(cl_int) * WIN_H * WIN_W;
 	game->kernels[0].sizes[1] =  sizeof(t_obj) * game->obj_quantity;
@@ -47,8 +54,8 @@ void		opencl(t_game *game, char *argv)
 
 void	free_opencl(t_game *game)
 {
-	free(game->kernels);
-	free(game->cl_info);
-	free(game->gpu.vec_temp);
-	free(game->gpu.random);
+	// free(game->kernels);
+	// free(game->cl_info);
+	// free(game->gpu.vec_temp);
+	// free(game->gpu.random);
 }

@@ -167,7 +167,6 @@ typedef struct			s_game
 int						bind_data(t_gpu *gpu, t_game *game);
 void 					release_gpu(t_gpu *gpu);
 void 					ft_run_gpu(t_gpu *gpu);
-int						opencl_init(t_gpu *gpu, t_game *game);
 cl_float3				create_cfloat3 (float x, float y, float z);
 cl_float3				cl_scalar_mul(cl_float3 vector, double scalar);
 cl_float3				cl_add(cl_float3 v1, cl_float3 v2);
@@ -205,5 +204,6 @@ void					parse_triangle(char **data, t_game *game);
 void					main_screen(t_gui *gui, t_game *game);
 void					obj_select(t_gui *gui, t_obj *objs, int num);
 void					pos_check(t_gui *gui);
+void 					opencl_init1(t_game *game, char *argv);
 
 #endif
