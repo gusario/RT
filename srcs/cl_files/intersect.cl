@@ -5,16 +5,21 @@ static float ft_solve(float a, float b, float c)
 {
 	float  disc = b * b - 4*a*c;
    	float temp = 1/(2*a);
-	float res;
+	float res1;
+	float res2;
 
+	// if (fabs(a * 0.5f) < EPSILON)
+	// 	return (0.0f);
  	if (disc < 0.0f) 
 		return 0.0f;
 	
 	disc = sqrt(disc);
-	if ((res = (-b - disc) * temp) > EPSILON)
-		return res;
-    if ((res = (-b + disc) * temp) > EPSILON)
-		return res;
+	res1 = (-b - disc) * temp;
+	res2 = (-b + disc) * temp;
+	if ((res1) > EPSILON && res2 > EPSILON)
+		return res1 <= res2 ? res1 : res2;
+	if (res1 > EPSILON || res2 > EPSILON)
+		return res1 <= res2 ? res2 : res1;
 	return(0.f);
 }
 
@@ -22,21 +27,14 @@ static float ft_solve(float a, float b, float c)
 static float intersect_cone(const t_obj* cone, const t_ray *  ray) /* version using local copy of sphere */
 {
 	float3	x = ray->origin - cone->position;
-	float angle = cos(cone->radius);
-	float	a = dot(ray->dir, cone->v) * dot(ray->dir, cone->v) - angle * angle;
-	float	b = 2.0 * (dot(ray->dir, cone->v) * dot(x, cone->v) - dot(ray->dir, x) * angle * angle);
-	float	c = dot(x, cone->v) * dot(x, cone->v) - dot(x,x) * angle * angle;
+	float	a = dot(ray->dir, cone->v);
+	float	c = dot(x, cone->v);
+	float	temp = 1 + cone->radius * cone->radius;
+	float	b = 2.0 * (dot(ray->dir, x) - temp * a * c);
 
-	float d = b*b - 4.f * a * c;
-	if(d < EPSILON) 
-		return 0.f;
-	d = sqrt(d);
-	float t1 = (-b - d) / (2. * a);
-	float t2 = (-b + d) / (2. * a);
-	float t = t1;
-	if(t < EPSILON || t2 > EPSILON && t2 < t)
-		t = t2;
-	return (t);
+	a = dot(ray->dir, ray->dir) - temp * a * a;
+	c = dot(x, x) - temp * c * c;	
+	return (ft_solve(a, b, c));
 }
 
 static float intersect_sphere(const t_obj* sphere,  t_ray *  ray) /* version using local copy of sphere */

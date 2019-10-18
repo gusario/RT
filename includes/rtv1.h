@@ -204,6 +204,6 @@ void					parse_triangle(char **data, t_game *game);
 void					main_screen(t_gui *gui, t_game *game);
 void					obj_select(t_gui *gui, t_obj *objs, int num);
 void					pos_check(t_gui *gui);
-void 					opencl_init1(t_game *game, char *argv);
+void 					opencl_init(t_game *game, char *argv);
 
 #endif
