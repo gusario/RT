@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:53:01 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/19 19:14:36 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/19 22:23:34 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void opencl_init(t_game *game, char *argv)
 	game->gpu.samples = 0;
 	game->cam_num = 0;
 	game->gpu.camera = NULL;
+	read_scene(game->av, game);
 	game->cl_info->krl_names = ft_memalloc(sizeof(t_vect));
 	vect_init(game->cl_info->krl_names);
 	vect_str_add(game->cl_info->krl_names, "render_kernel");
@@ -31,7 +32,6 @@ void opencl_init(t_game *game, char *argv)
 	game->cl_info->ret = cl_krl_build(game->cl_info, game->kernels, fd, "-w -I srcs/cl_files/ -I includes/cl_headers/", game->cl_info->krl_names);
 
 
-	read_scene(argv, game);
 	cl_krl_init(&game->kernels[0], 5);
 	game->kernels[0].sizes[0] = sizeof(cl_int) * WIN_H * WIN_W;
 	game->kernels[0].sizes[1] =  sizeof(t_obj) * game->obj_quantity;
@@ -51,8 +51,8 @@ void opencl_init(t_game *game, char *argv)
 
 void		opencl(t_game *game, char *argv)
 {
-	 game->obj_quantity = 0; 
-	read_scene(argv, game);
+	game->obj_quantity = 0; 
+	read_scene(game->av, game);
 	printf("n->objs: %zu\n", game->obj_quantity);
 	game->kernels[0].sizes[1] =  sizeof(t_obj) * game->obj_quantity;
 	game->kernels[0].args[1] =  clCreateBuffer(game->cl_info->ctxt, CL_MEM_READ_WRITE, game->kernels[0].sizes[1], NULL, &game->cl_info->ret);
