@@ -34,7 +34,6 @@
 # define GMASK 0x0000ff00
 # define BMASK 0x00ff0000
 # define AMASK 0xff000000
-# define DROUND(d)	ABS(d) < 0.00001 ? 0 : (d)
 
 typedef enum			e_figure
 {
@@ -171,7 +170,7 @@ cl_float3				create_cfloat3 (float x, float y, float z);
 cl_float3				cl_scalar_mul(cl_float3 vector, double scalar);
 cl_float3				cl_add(cl_float3 v1, cl_float3 v2);
 void					get_texture(char *name, t_txture *texture);
-void 					read_scene(char *argv, t_game *game);
+void 					read_scene(t_game *game, int fd);
 t_cam 					*add_cam(cl_float3 position, cl_float3 direction, cl_float3 normal);
 cl_float3				mult_cfloat3(cl_float3 one, float f);
 cl_float3				sum_cfloat3(cl_float3 one, cl_float3 two);
