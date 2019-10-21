@@ -6,7 +6,7 @@
 #    By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2019/10/21 13:23:20 by jblack-b         ###   ########.fr        #
+#    Updated: 2019/10/21 13:54:16 by jblack-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS_LIST = main.c\
 			parse_sphere_plane.c\
 			parse_cone_cyl.c\
 			cl_float3_manage.c\
+			cl_float3_rotate.c\
 			keys.c\
 			camera.c\
 			const.c\
@@ -186,8 +187,11 @@ $(LIBSDL):
 
 clean:
 	@rm -rf ./gui/build $(RMRF)
-	@$(MAKE) -sC $(LIBFT_DIRECTORY) clean
-	@$(MAKE) -sC $(LIBSDL_DIRECTORY) clean
+	$(MAKE) -sC $(LIBFT_DIRECTORY)	clean
+	$(MAKE) -sC $(LIBSDL_DIRECTORY) clean
+	$(MAKE) -sC $(LIBVECT)	clean
+	$(MAKE) -sC $(LIBCL)	clean
+	$(MAKE) -sC $(LIBGNL) 	clean
 	@rm -rf $(OBJS_DIRECTORY)
 	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"
 	@echo "$(NAME): $(RED)object files were deleted$(RESET)"
@@ -207,6 +211,9 @@ fclean: clean
 	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
 	@$(MAKE) -sC $(LIBFT_DIRECTORY) fclean
 	@$(MAKE) -sC $(LIBSDL_DIRECTORY) fclean
+	@$(MAKE) -sC $(LIBVECT) fclean
+	@$(MAKE) -sC $(LIBCL) fclean
+	@$(MAKE) -sC $(LIBGNL) fclean
 	#@rm -f $(DIRECTORY)/bin/sdl2-config
 	#@rm -f $(DIRECTORY)/lib/libSDL2.la
 	#@rm -f $(DIRECTORY)/lib/libSDL2main.la
