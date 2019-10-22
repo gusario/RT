@@ -6,13 +6,13 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 15:34:45 by sdurgan           #+#    #+#             */
-/*   Updated: 2019/10/21 14:19:34 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:57:39 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	text_load(t_game *game, t_gui *gui)
+static void	text_load(t_game *game)
 {
 	struct dirent	*name_buff;
 	DIR				*res;
@@ -60,7 +60,7 @@ int			main(int argc, char **argv)
 	gui.main_screen = 0;
 	ft_init_window(&game.sdl, WIN_W, WIN_H);
 	set_const(&game, &gui);
-	text_load(&game, &gui);
+	text_load(&game);
 	init_kiwi(&gui);
 	if (argc != 2)
 		game.av = start_gui(&gui);
@@ -71,8 +71,7 @@ int			main(int argc, char **argv)
 	}
 	SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR));
 	gui.main_screen = 1;
-	opencl_init(&game, game.av);
-	printf("ok\n");
+	opencl_init(&game);
 	main_loop(&game, &gui, argc);
 	quit_kiwi_main(&gui);
 	ft_exit(NULL);

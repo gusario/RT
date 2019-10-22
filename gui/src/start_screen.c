@@ -6,7 +6,7 @@
 /*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 22:51:42 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/21 14:17:18 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:49:26 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	ok_clicked(KW_Widget *widget, int b)
 {
 	t_gui	*gui;
 
+	b = 0;
+	widget = 0;
 	gui = g_gui(0, 0);
 	gui->av = ft_strdup((char *)KW_GetEditboxText(gui->ed_w.editBox));
 	gui->quit = KW_TRUE;

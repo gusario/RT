@@ -6,14 +6,14 @@
 #    By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2019/10/21 13:54:16 by jblack-b         ###   ########.fr        #
+#    Updated: 2019/10/22 16:53:38 by jblack-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = rtv1
 
-FLAGS = -g
+FLAGS = -g -Wall -Wextra -Werror
 CC = gcc
 LIBRARIES = $(GUI_LIB) -lft -L$(LIBFT_DIRECTORY)  -lsdl -L$(LIBSDL_DIRECTORY)  -lm -framework OpenCL  -lvect -L$(LIBVECT) -lgnl -L$(LIBGNL) -lcl -L$(LIBCL)
 INCLUDES = $(GUI_INC) -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)  -I$(SDL_HEADERS) -I$(LIBMATH_HEADERS) -I$(LIBSDL_HEADERS) -I$(LIBVECT)includes/ -Isrcs/cl_error/ -I$(LIBGNL)includes/ -I$(LIBCL)includes/
