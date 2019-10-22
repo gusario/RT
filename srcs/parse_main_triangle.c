@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 19:04:09 by srobert-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:06:46 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:47:18 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,12 @@ static void	obj_type(char **data, t_game *game)
 	feel_free(data);
 }
 
-void		read_scene(char *argv, t_game *game)
+void		read_scene(t_game *game, int fd)
 {
-	int		fd;
 	char	*line;
 	char	**data;
 	int		err;
 
-	fd = open(argv, O_RDONLY);
 	while ((err = get_next_line(fd, &line)) > 0)
 	{
 		if (ft_strlen(line) == 0)

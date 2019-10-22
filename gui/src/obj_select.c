@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj_select.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:08:02 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/15 16:02:28 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/22 17:49:58 by jblack-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	clicked(KW_Widget *widget, int b)
 	t_gui	*gui;
 	t_obj	*obj;
 
+	b = 0;
 	gui = g_gui(0, 0);
 	obj = KW_GetWidgetUserData(widget);
 	obj->is_visible = !obj->is_visible;

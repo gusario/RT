@@ -7,7 +7,7 @@
 #include "textures.cl"
 
 #define SAMPLES 5
-#define BOUNCES 2
+#define BOUNCES 3
 #define LIGHTSAMPLING 1
 
 static float get_random( int * seed0, int * seed1);
@@ -96,7 +96,7 @@ static bool intersect_scene(t_scene *scene, t_intersection *intersection, t_ray 
 }
 
 
-static float3		radiance_explicit(t_scene *scene,
+static float3		light_sampling(t_scene *scene,
 					t_intersection *intersection_object
 					)
 {
@@ -121,7 +121,7 @@ static float3		radiance_explicit(t_scene *scene,
 			continue ;
 		light_position = sphere_random(scene->objects + i, scene->random);
 		light_direction = normalize(light_position - intersection_object->hitpoint);
-		lightray.origin = intersection_object->hitpoint; //- light_direction * EPSILON;
+		lightray.origin = intersection_object->hitpoint;
 		lightray.dir = light_direction;
 		intersection_reset(&intersection_light);
 
@@ -135,11 +135,10 @@ static float3		radiance_explicit(t_scene *scene,
 		if (emission_intensity < 0.00001f)
 			continue ;
 		pdf = 0.5;
-
 		sphere_radius = scene->objects[intersection_light.object_id].radius;
 		cos_a_max = sqrt(1.f - (sphere_radius * sphere_radius) / length(intersection_object->hitpoint - light_position));
-		omega = 2 * PI * (1.f - cos_a_max);
-		radiance += scene->objects[i].emission * emission_intensity * omega * _1_PI;
+		cos_a_max = 2.f * PI * (1.f - cos_a_max);
+		radiance += scene->objects[i].emission * emission_intensity * cos_a_max * _1_PI;
 	}
 	return (radiance);
 }
@@ -178,7 +177,7 @@ static float3 trace(t_scene * scene, t_intersection * intersection, int *seed0, 
 			accum_color += mask * objecthit.emission;
 			if (LIGHTSAMPLING)
 			{
-				explicit = radiance_explicit(scene, intersection);
+				explicit = light_sampling(scene, intersection);
 				accum_color += explicit * mask  * objecthit.color;//* intersection->material.color;
 			}
 			/* add the colour and light contributions to the accumulated colour */
@@ -193,7 +192,7 @@ static float3 trace(t_scene * scene, t_intersection * intersection, int *seed0, 
 			accum_color += mask * objecthit.emission;
 			if (LIGHTSAMPLING)
 			{
-				explicit = radiance_explicit(scene, intersection);
+				explicit = light_sampling(scene, intersection);
 				accum_color += explicit * mask *  objecthit.color;//intersection->material.color;
 			}
 			mask *= objecthit.color * cosine;
@@ -209,8 +208,6 @@ static float3 trace(t_scene * scene, t_intersection * intersection, int *seed0, 
 static void scene_new(__global t_obj* objects, int n_objects, int width, int height,\
  int samples, __global ulong * random, __global t_txture *textures, t_cam camera, t_scene *scene)
 {
-	// t_scene new_scene;
-
 	scene->objects = objects;
 	scene->n_objects = n_objects;
 	scene->width = width;
@@ -224,7 +221,6 @@ static void scene_new(__global t_obj* objects, int n_objects, int width, int hei
 	scene->random = random;
 	scene->textures = textures;
 	scene->camera = camera;
-	// return (new_scene);
 }
 
 __kernel void render_kernel(__global int* output, __global t_obj* objects,
@@ -254,11 +250,4 @@ __global float3 * vect_temp,  __global ulong * random,  __global t_txture *textu
 
 	output[scene.x_coord + scene.y_coord * width] = ft_rgb_to_hex(toInt(finalcolor.x  / samples),
 	 toInt(finalcolor.y  / samples), toInt(finalcolor.z  / samples)); /* simple interpolated colour gradient based on pixel coordinates */
-	// if(scene.x_coord == 200  && scene.y_coord == 200)
-	// {	
-	// 	printf("ok\n");
-	// 	printf("%d\n", textures[3].texture[x_coord + y_coord * 4096]);
-
-	// }
-	// output[scene.x_coord + scene.y_coord * width] = textures[1].texture[x_coord + y_coord * 4096];
 }
