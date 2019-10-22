@@ -74,7 +74,7 @@ typedef struct			s_ray
 	t_vec3 				dir;
 	t_vec3 				hit;
 	double 				t;
-} 						t_ray;
+}						t_ray;
 
 
 typedef struct			s_cam

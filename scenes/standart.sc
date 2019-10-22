@@ -1,0 +1,18 @@
+TYPE:		POSITION:			V:					COLOR:				EMITION:			RADIUS:		REFLECTION:		TEXTURE:	NORMAL:
+
+CYLINDER	-0.4f,0.0f,-0.1f	0.0f,1.0f,0.0f		0.9f,0.8f,0.7f		0.0f,0.0f,0.0f		0.16f		0.0f			0
+SPHERE		0.0f,0.2f,0.3f							1.0f,1.0f,1.0f		0.0f,0.0f,0.0f		0.2f	    1.0f			0
+SPHERE		-0.5f,0.5f,1.0f							1.0f,1.0f,1.0f		80.0f,80.0f,80.0f	0.1f		0.0f			0
+SPHERE		0.5f,-0.5f,1.0f							1.0f,1.0f,1.0f		80.0f,80.0f,80.0f	0.1f		0.0f			0
+PLANE		-1.0f,0.0f,0.0f		1.0f,0.0f,0.0f		1.0f,0.0f,0.0f		0.0f,0.0f,0.0f					1.0f			0
+PLANE		1.0f,0.0f,0.0f		1.0f,0.0f,0.0f		0.0f,0.0f,0.1f		0.0f,0.0f,0.0f					0.0f			0
+PLANE		0.0f,0.5f,0.0f		0.0f,-1.0f,0.0f		0.0f,1.0f,0.0f		0.0f,0.0f,0.0f					0.0f			0
+PLANE		0.0f,-0.5f,0.0f		0.0f,1.0f,0.0f		1.0f,1.0f,0.0f		0.0f,0.0f,0.0f					0.0f			0
+PLANE		0.0f,0.0f,-0.3f		0.0f,0.0f,1.0f		0.0f,1.0f,1.0f		0.0f,0.0f,0.0f					0.0f			0
+PLANE		0.0f,0.0f,2.0f		0.0f,0.0f,1.0f		1.0f,0.0f,1.0f		0.0f,0.0f,0.0f					0.0f			0
+CAM			0.0f,0.1f,2.0f		0.0f,0.0f,-1.0f																						0.0f,1.0f,0.0f
+CAM			0.0f,0.2f,1.0f		0.0f,0.0f,1.0f																						0.0f,1.0f,0.0f
+TRIANGLES:
+
+TYPE:		VERTICE A:			VERTICE B:			VERTICE C:			COLOR:				EMITION:					REFLECTION:				TEXTURE:
+/TRIANGLE	0.0f,0.1f,0.1f		0.0f,0.35f,1.0f		1.0f,0.0f,0.0f		0.9f,0.8f,0.7f		0.0f,0.0f,0.0f				0.0f					0
