@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_select.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jblack-b <jblack-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 16:30:29 by lminta            #+#    #+#             */
-/*   Updated: 2019/10/22 17:49:40 by jblack-b         ###   ########.fr       */
+/*   Updated: 2019/10/22 21:12:52 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	clicked(KW_Widget *widget, int b)
 	b = 0;
 	gui = g_gui(0, 0);
 	name = KW_GetWidgetUserData(widget);
+	free(gui->av);
 	gui->av = ft_strjoin("scenes/", name);
 	gui->quit = 1;
 }

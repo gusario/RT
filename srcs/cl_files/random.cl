@@ -23,13 +23,24 @@ static float get_random( int *seed0, int *seed1) {
 
 int rand(int seed) // 1 <= *seed < m
 {
-    int const a = 16807; //ie 7**5
-    int const m = 2; //ie 2**31-1
+	int const a = 16807; //ie 7**5
+	int const m = 2; //ie 2**31-1
 
-    seed = ((long)(seed * a)) % m - 1;
-    return(seed);
+	seed = ((long)(seed * a)) % m - 1;
+	return(seed);
 }
 
+static float			random_next(global ulong *rng_state)
+{
+	int				gi;
+	ulong			x;
+
+	gi = get_global_id(0);
+	x = rng_state[gi];
+	x = (0x5DEECE66DL * x + 0xBL) & ((1L << 48) - 1);
+	rng_state[gi] = x;
+	return ((float)x / (1L << 48));
+}
 
 float3	sample_hemisphere(float3 w, float max_r, int *seed0, int *seed1)
 {
@@ -50,9 +61,9 @@ float3	sample_hemisphere(float3 w, float max_r, int *seed0, int *seed1)
 
 double rand_noise(int t)
 {
-    t = (t<<13) ^ t;
-    t = (t * (t * t * 15731 + 789221) + 1376312589);
-    return ((t & 0x7fffffff) / 2147483648.0);
+	t = (t<<13) ^ t;
+	t = (t * (t * t * 15731 + 789221) + 1376312589);
+	return ((t & 0x7fffffff) / 2147483648.0);
 }
 
 
@@ -62,9 +73,9 @@ double noise_3d(int x, int y, int z)
 {
 	int		tmp1;
 	int		tmp2;
-    tmp1 = rand_noise(x) * 850000;
-    tmp2 = rand_noise (tmp1 + y) * 850000 ;
-    return(rand_noise(tmp2 + z));
+	tmp1 = rand_noise(x) * 850000;
+	tmp2 = rand_noise (tmp1 + y) * 850000 ;
+	return(rand_noise(tmp2 + z));
 }
 
 unsigned int ParallelRNG( unsigned int x )
@@ -91,45 +102,14 @@ unsigned int ParallelRNG3( unsigned int x,  unsigned int y,  unsigned int z )
 	return value;
 }
 
-static float			rng_lgc(global ulong *rng_state)
-{
-	int				gi;
-	ulong			x;
-
-	gi = get_global_id(0);
-	x = rng_state[gi];
-	x = (0x5DEECE66DL * x + 0xBL) & ((1L << 48) - 1);
-	rng_state[gi] = x;
-    return ((float)x / (1L << 48));
-}
-
-static float			rng_xor(global ulong *rng_state)
-{
-	int				gi;
-	ulong			x;
-
-	gi = get_global_id(0);
-	x = rng_state[gi];
-    x ^= x << 13;
-    x ^= x >> 17;
-    x ^= x << 17;
-	rng_state[gi] = x;
-    return (x / 4294967296.0f);
-}
-
-static float			rng(global ulong *rng_state)
-{
-	return (rng_lgc(rng_state));
-}
-
 static float3					sphere_random(global t_obj *object, global int *rnd)
 {
 	float 						theta;
 	float 						phi;
 	float3						random;
 
-	theta = rng(rnd) * PI;
-	phi = rng(rnd) * 2 * PI;
+	theta = random_next(rnd) * PI;
+	phi = random_next(rnd) * 2 * PI;
 	random.x = 0.5 * object->radius * sin(theta) * cos(phi);
 	random.y = 0.5 * object->radius * sin(theta) * sin(phi);
 	random.z = 0.5 * object->radius * cos(theta);
@@ -137,16 +117,14 @@ static float3					sphere_random(global t_obj *object, global int *rnd)
 	return (random);
 }
 
-
-
 static float3					sphere_random_on_sphere(global t_obj *object, global int *rnd)
 {
 	float 						theta;
 	float 						phi;
 	float3						random;
 
-	theta = rng(rnd) * PI;
-	phi = rng(rnd) * 2 * PI;
+	theta = random_next(rnd) * PI;
+	phi = random_next(rnd) * 2 * PI;
 	random.x =  object->radius  * sin(theta) * cos(phi);
 	random.y = object->radius * sin(theta) * sin(phi);
 	random.z =  object->radius * cos(theta);
@@ -194,8 +172,8 @@ static float3		sample_uniform
 	float			sin_theta;
 	float			phi;
 
-	r[0] = rng(scene->random);
-	r[1] = rng(scene->random);
+	r[0] = random_next(scene->random);
+	r[1] = random_next(scene->random);
 	sin_theta = sqrt(max(0.0f , 1.0f - r[0] * r[0]));
 	phi = 2.0f * PI * r[1];
 	*cosine = r[0];

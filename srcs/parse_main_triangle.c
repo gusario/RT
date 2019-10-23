@@ -6,7 +6,7 @@
 /*   By: lminta <lminta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 19:04:09 by srobert-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:47:18 by lminta           ###   ########.fr       */
+/*   Updated: 2019/10/22 20:13:44 by lminta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void		read_scene(t_game *game, int fd)
 	ft_strdel(&line);
 	if (err == -1)
 		terminate("no file\n");
+	check_file(game);
 	close(fd);
 }

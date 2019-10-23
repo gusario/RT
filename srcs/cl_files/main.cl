@@ -55,7 +55,7 @@ static void createCamRay(const int width, const int height, t_scene *scene, t_ra
 
 	/* create camera ray*/
 	ray->origin = scene->camera.position; /* fixed camera position */
-	ray->dir = normalize(pixel_pos + float3(rng(scene->random) * EPSILON, rng(scene->random) * EPSILON, rng(scene->random) * EPSILON)); /* vector from camera to pixel on screen */
+	ray->dir = normalize(pixel_pos + float3(random_next(scene->random) * EPSILON, random_next(scene->random) * EPSILON, random_next(scene->random) * EPSILON)); /* vector from camera to pixel on screen */
 }
 
 static bool intersect_scene(t_scene *scene, t_intersection *intersection, t_ray *ray, int light)
@@ -70,8 +70,6 @@ static bool intersect_scene(t_scene *scene, t_intersection *intersection, t_ray 
 	for (int i = 0; i < scene->n_objects; i++)  {
 
 		t_obj object = scene->objects[i]; /* create local copy of sphere */
-		// if (light == 1 && cl_float3_max(object.emission) == 0)
-		// 	continue;
 		float hitdistance = 0;
 		if (object.is_visible)
 		{
@@ -156,7 +154,7 @@ static float3 trace(t_scene * scene, t_intersection * intersection, int *seed0, 
 		if (!intersect_scene(scene, intersection, &ray, 0))
 			return mask * global_texture(&ray, scene);
 		/* Russian roulette*/
-		if (bounces > 4 && cl_float3_max(scene->objects[intersection->object_id].color) < rng(scene->random))
+		if (bounces > 4 && cl_float3_max(scene->objects[intersection->object_id].color) < random_next(scene->random))
 			break;
 
 		t_obj objecthit = scene->objects[intersection->object_id]; /* version with local copy of sphere */
@@ -234,12 +232,11 @@ __global float3 * vect_temp,  __global ulong * random,  __global t_txture *textu
 	unsigned int x_coord = work_item_id % width;			/* x-coordinate of the pixel */
 	unsigned int y_coord = work_item_id / width;			/* y-coordinate of the pixel */
 	/* seeds for random number generator */
-	 unsigned int seed0 = x_coord + rng(random);
-	 unsigned int seed1 = y_coord + rng(random);
+	 unsigned int seed0 = x_coord + random_next(random);
+	 unsigned int seed1 = y_coord + random_next(random);
 	finalcolor = vect_temp[x_coord + y_coord * width];
 
 	 scene_new(objects, n_objects, width, height, samples, random, textures, camera, &scene);
-	// // print_debug(scene.samples, scene.width, &scene);
 	for (int i = 0; i < SAMPLES; i++)
 	{
 		createCamRay(width, height, &scene, &(intersection.ray));
