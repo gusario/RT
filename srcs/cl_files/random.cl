@@ -18,15 +18,6 @@ static float		rng(global ulong *rng_state)
 	return (rng_lgc(rng_state));
 }
 
-static float rng_range(global ulong *rng_state, float a, float b)
-{
-	if (a < b)
-		return (rng(rng_state) * (b - a) + a);
-	else
-		return (rng(rng_state) * (a - b) + b);
-
-}
-
 static float3		sphere_random(global t_obj *object, global ulong *rnd)
 {
 	float 			theta;
@@ -68,35 +59,26 @@ static float3		sampler_transform(float3 *normal, float3 *sample)
 
 static float3		sample_uniform
 					(float3 *normal,
-					float *cosine,
-					t_scene * scene)
+					t_scene * scene, float metalness)
 {
 	float3 			r;
 	float3			ret;
+	// float 			phi, theta;
+	// float 			thetasin;
 
-	r.x = rng(scene->random) * 2.f - 1.f;
-	r.y = (rng(scene->random) * 2.f - 1.f) * sqrt(1.f - r.x * r.x);
+	metalness = cos(PI * 0.5f * metalness);
+	// phi = rng(scene->random) * 2 * PI;
+	// theta = rng(scene->random) * 2 * PI;
+	// thetasin = sin(theta);
+	// r.x = thetasin * cos(phi) * metalness;
+	// r.y = thetasin * sin(phi) * metalness;
+	// r.z = sqrt(fabs(1.f - r.x * r.x - r.y * r.y));
+	// r = normalize(r);
+	r.x = (rng(scene->random) * 2.f - 1.f);
+	r.y = ((rng(scene->random) * 2.f - 1.f)) * sqrt(1.f - r.x * r.x);
+	r *= metalness;
 	r.z = sqrt(fabs(1.f - r.y * r.y - r.x * r.x));
 	ret = sampler_transform(normal, &r);
-	*cosine = dot(*normal, ret);
 	return (ret);
 }
 
-static float get_random( int *seed0, int *seed1) {
-
-	/* hash the seeds using bitwise AND operations and bitshifts */
-	*seed0 = 36969 * ((*seed0) & 65535) + ((*seed0) >> 16);  
-	*seed1 = 18000 * ((*seed1) & 65535) + ((*seed1) >> 16);
-
-	unsigned int ires = ((*seed0) << 16) + (*seed1);
-
-	/* use union struct to convert int to float */
-	union 
-	{
-		float f;
-		unsigned int ui;
-	} res;
-
-	res.ui = (ires & 0x007fffff) | 0x40000000;  /* bitwise AND, bitwise OR */
-	return (res.f - 2.0f) / 2.0f;
-}

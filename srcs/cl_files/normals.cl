@@ -18,20 +18,18 @@ static float3	get_cylinder_normal(t_obj * object, t_intersection * intersection)
 		float3		cp = object->position - intersection->hitpoint;
 		float3		g = dot(object->v, cp) * object->v;
 
-		norm = normalize(g - cp);
+		norm = -normalize(g - cp);
 		return(norm);
 	}
 
 static float3 sphere_get_normal(t_obj * object, t_intersection * intersection)
 {
-	return (intersection->hitpoint - object->position);
+	return (normalize(intersection->hitpoint - object->position));
 }
 
-static float3 plane_get_normal(t_obj * object, t_intersection * intersection)
+static float3 plane_get_normal(t_obj *object, t_intersection *intersection)
 {
-	if (dot(intersection->ray.dir,object->v) < 0)
-		return (object->v);
-	return (object->v * -1);
+	return (object->v);
 }
 
 float3 get_normal(t_obj *object, t_intersection *intersection, float2 *coord, t_scene *scene)
@@ -46,11 +44,28 @@ float3 get_normal(t_obj *object, t_intersection *intersection, float2 *coord, t_
 	 	normal = get_cone_normal(object, intersection);
 	else if (object->type == TRIANGLE)
 		normal = object->v;
+	else if (object->type == PARABOLOID)
+	{
+		normal = intersection->hitpoint - object->v * object->radius;
+		normal = normalize(normal);
+	}
+	else if (object->type == TORUS)
+	{
+		float3 govno = intersection->hitpoint;
+
+		govno -= object->position;
+		normal = govno - dot(govno, object->v) * object->v;
+		normal = normalize(normal);
+		normal = govno - normal * object->radius;
+		normal = normalize(normal);
+	}
 	else
 		normal = sphere_get_normal(object, intersection);
 	// if (dot(intersection->ray.dir, normal) < 0)
 	// 	normal = -normal;
 	if (object->normal != 0)
+	{
 		normal = normal_map(object, intersection, normal, coord, scene);
-	return (normalize(normal));
+	}
+	return (normal);
 }

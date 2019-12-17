@@ -1,0 +1,37 @@
+{
+    "scene":{
+        "global texture":"HDRX1.jpg",
+        "ambiance": 0.0,
+        "cartoon": 0,
+        "motion blur" : 0.2,
+        "sepia" : 0
+    },
+
+    "objects":[
+        {
+            "type": "sphere",
+            "position": [0.000, 0.000, 0.000],
+            "color": [1.0, 1.000, 1.0],
+            "transparency": 1.000,
+            "metalness": 0.000,
+            "refraction": 2.000,
+            "radius": 3
+        }
+    ],
+
+
+    "cameras":[
+        {
+            "position": [0, 0, 12.000],
+            "dir": [0, 0, -1],
+            "normal": [0, 1, 0],
+            "fov": 60.000
+        },
+        {
+            "position": [0.0,0.1,2.0],
+            "dir": [0.0,0.0,1.0],
+            "normal":[0.0,1.0,0.0],
+            "fov": 120
+        }
+    ]
+}

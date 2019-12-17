@@ -1,0 +1,32 @@
+{
+    "scene":{
+        "global texture": 434,
+        "ambiance": 0.0,
+        "music": "gui/res/main_menu.wav",
+        "cartoon": 0,
+        "motion blur" : 0.0,
+        "sepia" : 0,
+        "stereo": 0
+    },
+
+    "objects":[
+        {
+            "type": "sphere",
+            "position": [0.0,0.15,1.0],
+            "color": [0.0,0.0,0.0],
+            "radius" : 0.15,
+            "emition" : [100.0,100.0,100.0],
+            "texture": "sviborg_you.jpg",
+            "x_basis": [0.0,0.0,1.0],
+            "y_basis": [0.0,1.0,0.0]
+        }
+    ],
+
+    "cameras":[
+        {
+            "position": [0.0,0.15,1.5],
+            "dir": [1.0,0.0,0.0],
+            "normal":[0.0,1.0,0.0]
+        }
+    ]
+}

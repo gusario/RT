@@ -1,16 +1,12 @@
 {
-    "textures":[
-        "sobenin.jpg",
-        "sun.jpg",
-        "179.JPG",
-        "grass_rock.jpg",
-        "ice.jpg",
-        "stars.jpg",
-        "196.JPG"
-    ],
-    "normals":[
-        "196_norm.JPG"
-    ],
+    "scene":{
+        "global texture":"sviborg.jpg",
+        "ambiance": 0.5,
+        "cartoon": 0,
+        "motion blur" : 0.0,
+        "sepia" : 0
+    },
+
     "objects":[
         {
             "type": "sphere",
@@ -19,7 +15,7 @@
             "radius" : 0.1,
             "reflection": 0.0,
             "emition" : [80.80,80.0,80.0],
-            "texture": 1
+            "texture": "sobenin.jpg"
         },
         {
             "type": "plane",
@@ -27,9 +23,8 @@
             "color": [0.9,0.8,0.7],
             "dir": [0.0,1.0,0.0],
             "emition" : [0.0,0.0,0.0],
-            "texture": 0,
             "reflection": 1.0,
-            "normal": 0
+            "normal": "196_norm.JPG"
         },
         {
             "type": "cylinder",
@@ -37,7 +32,7 @@
             "color": [0.9,0.8,0.7],
             "radius" : 0.5,
             "reflection": 0.0,
-            "texture": 3,
+            "texture": "179.JPG",
             "dir": [0.0,1.0,0.0]
         },
         {
@@ -46,7 +41,7 @@
             "color": [0.9,0.8,0.7],
             "radius" : 0.4,
             "reflection": 0.0,
-            "texture": 2,
+            "texture": "sun.jpg",
             "dir": [0.0,1.0,0.0]
         }
     ],
@@ -56,12 +51,14 @@
         {
             "position": [0.0,0.1,2.0],
             "dir": [0.0,0.0,-1.0],
-            "normal":[0.0,1.0,0.0]
+            "normal":[0.0,1.0,0.0],
+            "fov": 60
         },
         {
             "position": [0.0,0.1,2.0],
             "dir": [0.0,0.0,1.0],
-            "normal":[0.0,1.0,0.0]
+            "normal":[0.0,1.0,0.0],
+            "fov": 120
         }
     ]
 }

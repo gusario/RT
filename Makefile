@@ -1,3 +1,4 @@
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -6,35 +7,41 @@
 #    By: lminta <lminta@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2019/10/29 21:14:17 by lminta           ###   ########.fr        #
+#    Updated: 2019/11/29 21:06:38 by lminta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = rt
+NAME = RT
 
-FLAGS = -g #-Wall -Wextra -Werror
-CC = gcc
-LIBRARIES = $(GUI_LIB) -lft -L$(LIBFT_DIRECTORY)  -lsdl -L$(LIBSDL_DIRECTORY)  -lm -framework OpenCL  -lvect -L$(LIBVECT) -lgnl -L$(LIBGNL) -lcl -L$(LIBCL)
-INCLUDES = $(GUI_INC) -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)  -I$(SDL_HEADERS) -I$(LIBMATH_HEADERS) -I$(LIBSDL_HEADERS) -I$(LIBVECT)includes/ -Isrcs/cl_error/ -I$(LIBGNL)includes/ -I$(LIBCL)includes/
+FLAGS = -g -Wall -Wextra -Werror
+CC = clang
+LIBRARIES =  $(GUI_LIB) -lSDL2_image  -lSDL2_mixer  -lsdl -L$(LIBSDL_DIRECTORY)   -lcl -L$(LIBCL_DIR) -lgnl -L$(LIBGNL_DIR) -lvect -L$(LIBVECT_DIR) -lft -L$(LIBFT_DIRECTORY) -lm -lpthread -ljson -L$(cJSON_DIRECTORY)
+INCLUDES = $(GUI_INC) -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)  -I$(SDL_HEADERS) -I$(LIBMATH_HEADERS) -I$(LIBSDL_HEADERS) -I$(LIBVECT_DIR)includes/ -Isrcs/cl_error/ -I$(LIBGNL_DIR)includes/ -I$(LIBCL_DIR)includes/ -I$(cJSON_DIRECTORY)
 
-GUI_LIB = -L./gui/build/src -lKiWi $(shell pkg-config --libs sdl2_ttf) $(shell pkg-config --libs sdl2_image)
-GUI_INC = -I./include/SDL2 -I./gui/KiWi/src -I./gui/inc $(shell pkg-config --cflags sdl2_ttf) $(shell pkg-config --cflags sdl2_image)
-DIR_KiWi = ./gui/build/src/
-LIB_KiWi = $(DIR_KiWi)/libKiWi.dylib
+
+GUI_INC = -I./include/SDL2 -I./gui/KiWi/src
+DIR_KiWi = ./gui/build/src
 
 LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_HEADERS = $(LIBFT_DIRECTORY)includes/
+
+cJSON = $(cJSON_DIRECTORY)libjson.a
 
 LIBMATH = $(LIBMATH_DIRECTORY)libmath.a
 LIBMATH_DIRECTORY = ./libmath/
 LIBMATH_HEADERS = $(LIBMATH_DIRECTORY)includes/
 
 LIBFT_DIRECTORY = libs/libft/
-LIBVECT = libs/libvect/
-LIBCL	= libs/libcl/
-LIBGNL	= libs/libgnl/
+LIBVECT_DIR = libs/libvect/
+LIBCL_DIR	= libs/libcl/
+LIBGNL_DIR	= libs/libgnl/
+LIBVECT = $(LIBVECT_DIR)/libvect.a
+LIBCL = $(LIBCL_DIR)/libcl.a
+LIBGNL = $(LIBGNL_DIR)/libgnl.a
+
 LIBSDL_DIRECTORY = libs/libsdl/
+cJSON_DIRECTORY = cJSON/
 
 
 SDL_HEADERS = include/
@@ -43,7 +50,7 @@ LIBSDL_HEADERS = $(LIBSDL_DIRECTORY)includes/
 
 HEADERS_DIRECTORY = ./includes/
 HEADERS_LIST = rt.h
-HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
+HEADERS = ./includes/rt.h ./includes/gui.h
 
 DIRECTORY =  $(shell pwd)
 SDL_CFLAGS = $(shell sdl2-config --cflags)
@@ -62,41 +69,87 @@ LIB_LIST =	libSDL2.a\
 
 SRCS_DIRECTORY = ./srcs/
 
-RMRF = gui/src/gui_main.o\
-		gui/src/start_screen.o\
-		gui/src/surf_tex.o\
-		gui/src/scene_select.o\
-		gui/src/main_screen.o\
-		gui/src/obj_select.o\
-		gui/src/info_button.o\
-		/gui/src/gui_bar.o\
-		/gui/src/buttons.o\
-		cJSON/cJSON.o
+SRCS_LIST = cpu_main/main.c \
+			cpu_main/textures.c\
+			cpu_main/schwimmer_verwalten.c\
+			cpu_main/cl_float3_rotate.c\
+			cpu_main/keys.c\
+			cpu_main/camera.c\
+			cpu_main/const.c\
+			cpu_main/hilfefunktionen.c\
+			cpu_main/init_scene.c\
+			cpu_main/help_fun.c\
+			cpu_main/render.c\
+			cpu_main/mouse.c\
+			cpu_main/object_push.c\
+			cpu_main/mouse_mov.c\
+			cpu_main/math_cl4.c\
+			cpu_main/check_gui_entrance.c\
+			cpu_main/create_blur_mask.c\
+			cpu_main/analyse_dienstprogramme.c\
+			cpu_main/util.c\
+			net/net_gui.c\
+			net/net_connect.c\
+			net/net_srv.c\
+			net/net_string.c\
+			net/net_return.c\
+			gui/gui_main.c\
+			gui/add_obj.c\
+			gui/buttons.c\
+			gui/gui_bar.c\
+			gui/start_screen.c\
+			gui/surf_tex.c\
+			gui/scene_select.c\
+			gui/main_screen.c\
+			gui/ren_button.c\
+			gui/obj_select.c\
+			gui/obj_select2.c\
+			gui/cam_select.c\
+			gui/change_obj.c\
+			gui/smsht.c\
+			gui/editboxes.c\
+			gui/editboxes2.c\
+			gui/editboxes3.c\
+			gui/parse_obj.c\
+			gui/parse_box.c\
+			gui/parse_box2.c\
+			gui/create_obj.c\
+			gui/push_new.c\
+			gui/del_obj.c\
+			gui/change_cam.c\
+			gui/norma_from_obj_select.c\
+			gui/norma_from_cam_select.c\
+			gui/cam_buttons.c\
+			gui/init_kiwi.c\
+			gui/cam_click.c\
+			gui/show_hide.c\
+			gui/scene_click.c\
+			gui/cam_parser.c\
+			gui/cameras.c\
+			gui/add_camera.c\
+			gui/eff.c\
+			gui/gui_mod_butt.c\
+			gui/add_tex.c\
+			gui/stereo.c\
+			gui/tor_hyper.c\
+			gui/basis.c\
+			gui/pars_tor_hyper.c\
+			dumper/dumper_butt.c\
+			dumper/dumper_parts.c\
+			dumper/dumper_parts2.c\
+			parse/obj3d_parser.c\
+			parse/read_scene.c\
+			parse/check_scene.c\
+			parse/check_cam.c\
+			parse/check_object.c\
+			parse/parse_triangle.c\
+			parse/parse_rest.c\
+			parse/parse_basis.c\
+			parse/parse_facing.c\
+			parse/parse_necessary.c\
+			../cJSON/cJSON.c
 
-SRCS_LIST = main.c\
-			cl_lib/gpu_init.c\
-			textures.c\
-			cl_float3_manage.c\
-			cl_float3_rotate.c\
-			keys.c\
-			camera.c\
-			const.c\
-			help_fun.c\
-			init_scene.c\
-			render.c\
-			mouse.c\
-			../gui/src/gui_main.c\
-			../gui/src/buttons.c\
-			../gui/src/gui_bar.c\
-			../gui/src/start_screen.c\
-			../gui/src/surf_tex.c\
-			../gui/src/scene_select.c\
-			../gui/src/main_screen.c\
-			../gui/src/info_button.c\
-			../gui/src/obj_select.c\
-			../cJSON/cJSON.c\
-			new_slim_parse.c\
-			parse_util.c
+
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
@@ -120,8 +173,8 @@ COL_WHITE	:= \033[1;37m
 
 TOTAL_FILES := $(shell echo $(SRCS_LIST) | wc -w | sed -e 's/ //g')
 CURRENT_FILES = $(shell find $(DIRECTORY)/objects/ -type f 2> /dev/null | wc -l | sed -e 's/ //g')
-
-
+START_FILES = $(shell find $(DIRECTORY)/objects/ -type f 2> /dev/null | wc -l | sed -e 's/ //g')
+START_FILES_N := $(START_FILES)
 
 ifeq ($(OS),Windows_NT)
 	detected_OS := Windows
@@ -129,11 +182,18 @@ else
 	detected_OS := $(shell uname)
 endif
 
-ifeq ($(detected_OS),Windows)
-	CFLAGS += -D WIN32
+ifeq ($(detected_OS),Linux)
+	LIBRARIES += -rpath ./gui/build/ -L./gui/build/ -lKiWi   -lOpenCL -lrt
+	GUI_LIB +=    $(shell pkg-config --libs SDL2_image) $(shell pkg-config --libs SDL2_ttf) $(shell pkg-config --libs SDL2_mixer) $(shell pkg-config --libs SDL2_net)
+	 GUI_INC += $(shell pkg-config --cflags SDL2_ttf) $(shell pkg-config --cflags SDL2_image) $(shell pkg-config --cflags SDL2_mixer) $(shell pkg-config --cflags SDL2_net)
+	LIB_KiWi = $(DIR_KiWi)/libKiWi.so
 endif
 ifeq ($(detected_OS),Darwin)        # Mac OS X
-	CFLAGS += -D OSX
+	LIBRARIES += -framework OpenCL
+	GUI_LIB += $(shell pkg-config --libs sdl2_ttf) $(shell pkg-config --libs sdl2_image) $(shell pkg-config --libs sdl2_mixer) $(shell pkg-config --libs sdl2_net)
+    GUI_INC += $(shell pkg-config --cflags sdl2_ttf) $(shell pkg-config --cflags sdl2_image) $(shell pkg-config --cflags sdl2_mixer) $(shell pkg-config --cflags sdl2_net)
+	LIB_KiWi = $(DIR_KiWi)/libKiWi.dylib
+	GUI_LIB += -L./gui/build/src -lKiWi
 endif
 
 
@@ -142,16 +202,17 @@ endif
 all: $(MAKES) $(NAME)
 
 
-$(NAME): $(LIB_KiWi) $(LIBFT)  $(LIBSDL) $(LIBCL) $(LIBGNL)  $(LIBVECT) $(OBJS_DIRECTORY) $(OBJS) $(HEADERS)
+$(NAME): $(LIB_KiWi) $(LIBFT) $(cJSON)  $(LIBSDL) $(LIBCL_DIR) $(LIBGNL_DIR)  $(LIBVECT_DIR) $(OBJS_DIRECTORY) $(OBJS) $(HEADERS)
 	@$(CC) $(FLAGS) $(LIBSDL) $(INCLUDES) $(OBJS) $(SDL_CFLAGS) $(SDL_LDFLAGS) -o $(NAME) $(LIBRARIES)
-	@echo "$(CLEAR_LINE)[`expr $(CURRENT_FILES) '*' 100 / $(TOTAL_FILES)`%] $(COL_BLUE)[$(NAME)] $(COL_GREEN)Finished compilation. Output file : $(COL_VIOLET)$(PWD)/$(NAME)$(COL_END)"
+	@echo "$(CLEAR_LINE)[`expr $(CURRENT_FILES) '*' 100 / $(TOTAL_FILES) `%] $(COL_BLUE)[$(NAME)] $(COL_GREEN)Finished compilation. Output file : $(COL_VIOLET)$(PWD)/$(NAME)$(COL_END)"
 
 $(MAKES):
 	@$(MAKE) -sC $(LIBFT_DIRECTORY)
 	@$(MAKE) -sC $(LIBSDL_DIRECTORY)
-	@$(MAKE) -sC $(LIBVECT)
-	@$(MAKE) -sC $(LIBGNL)
-	@$(MAKE) -sC $(LIBCL)
+	@$(MAKE) -sC $(LIBVECT_DIR)
+	@$(MAKE) -sC $(LIBGNL_DIR)
+	@$(MAKE) -sC $(LIBCL_DIR)
+	@$(MAKE) -sC $(cJSON_DIRECTORY)
 
 $(OBJS_DIRECTORY):
 	@mkdir -p $(OBJS_DIRECTORY)
@@ -160,7 +221,7 @@ $(OBJS_DIRECTORY):
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c $(HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
-	@echo "$(CLEAR_LINE)[`expr $(CURRENT_FILES) '*' 100 / $(TOTAL_FILES)`%] $(COL_BLUE)[$(NAME)] $(COL_GREEN)Compiling file [$(COL_VIOLET)$<$(COL_GREEN)].($(CURRENT_FILES) / $(TOTAL_FILES))$(COL_END)$(BEGIN_LINE)"
+	@echo "$(CLEAR_LINE)[`expr $(CURRENT_FILES) '*' 100 / $(TOTAL_FILES) `%] $(COL_BLUE)[$(NAME)] $(COL_GREEN)Compiling file [$(COL_VIOLET)$<$(COL_GREEN)].($(CURRENT_FILES) / $(TOTAL_FILES))$(COL_END)$(BEGIN_LINE)"
 
 count:
 	@echo $(TOTAL_FILES)
@@ -193,15 +254,16 @@ $(LIBSDL):
 	@$(MAKE) -sC $(LIBSDL_DIRECTORY)
 
 norm:
-	norminette gui/inc gui/src includes srcs libs/libcl libs/libft libs/libgnl libs/libsdl/includes libs/libsdl/srcs/ libs/libvect
+	norminette  includes srcs libs/libcl libs/libft libs/libgnl libs/libsdl/includes libs/libsdl/srcs/ libs/libvect
 
 clean:
-	@rm -rf ./gui/build $(RMRF)
+	@rm -rf ./gui/build
 	$(MAKE) -sC $(LIBFT_DIRECTORY)	clean
 	$(MAKE) -sC $(LIBSDL_DIRECTORY) clean
-	$(MAKE) -sC $(LIBVECT)	clean
-	$(MAKE) -sC $(LIBCL)	clean
-	$(MAKE) -sC $(LIBGNL) 	clean
+	$(MAKE) -sC $(LIBVECT_DIR)	clean
+	$(MAKE) -sC $(LIBCL_DIR)	clean
+	$(MAKE) -sC $(LIBGNL_DIR) 	clean
+	$(MAKE) -sC $(cJSON_DIRECTORY)	clean
 	@rm -rf $(OBJS_DIRECTORY)
 	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"
 	@echo "$(NAME): $(RED)object files were deleted$(RESET)"
@@ -221,9 +283,10 @@ fclean: clean
 	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
 	@$(MAKE) -sC $(LIBFT_DIRECTORY) fclean
 	@$(MAKE) -sC $(LIBSDL_DIRECTORY) fclean
-	@$(MAKE) -sC $(LIBVECT) fclean
-	@$(MAKE) -sC $(LIBCL) fclean
-	@$(MAKE) -sC $(LIBGNL) fclean
+	@$(MAKE) -sC $(LIBVECT_DIR) fclean
+	@$(MAKE) -sC $(LIBCL_DIR) fclean
+	@$(MAKE) -sC $(LIBGNL_DIR) fclean
+	@$(MAKE) -sC $(cJSON_DIRECTORY) fclean
 	#@rm -f $(DIRECTORY)/bin/sdl2-config
 	#@rm -f $(DIRECTORY)/lib/libSDL2.la
 	#@rm -f $(DIRECTORY)/lib/libSDL2main.la
