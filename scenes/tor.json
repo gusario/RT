@@ -1,0 +1,45 @@
+{
+    "scene":{
+        "global texture":"sviborg.jpg",
+        "ambiance": 0.5,
+        "cartoon": 0,
+        "motion blur" : 0.0,
+        "sepia" : 0,
+        "stereo": 0
+    },
+
+    "objects":[
+        {
+            "type": "torus",
+            "position": [-1.0,1.0,-0.1],
+            "color": [1.0,0.0,0.0],
+			"radius" : 1.0,
+			"tor radius": 0.6,
+            "reflection": 0.0,
+			"dir": [1,1.00,0.10],
+			"texture":  "sviborg_you.jpg"
+        },
+        {
+            "type": "sphere",
+            "position": [0.0,0.2,1.0],
+            "color": [0.0,0.0,0.0],
+            "radius" : 0.15,
+            "emition" : [80.0,80.0,80.0],
+            "texture":  "sun.jpg"
+		}
+    ],
+    "cameras":[
+        {
+            "position": [4.869, 3.636, -3.595],
+            "dir": [-0.833, -0.336, 0.440],
+            "normal": [-0.297, 0.942, 0.157],
+            "fov": 60.000
+        },
+        {
+            "position": [0.000, 0.100, 2.000],
+            "dir": [0.000, 0.000, 1.000],
+            "normal": [0.000, 1.000, 0.000],
+            "fov": 60.000
+        }
+    ]
+}
